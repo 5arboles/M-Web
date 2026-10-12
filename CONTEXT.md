@@ -65,3 +65,8 @@ El archivo maestro detallado de referencias de diseño, simulación 3D y tipogra
 ## 5. Canales de Conversión
 Toda la interacción de compra y consultas mayoristas está integrada directamente hacia **WhatsApp** mediante enlaces con mensajes dinámicos contextualizados según la prenda o pack elegido.
 
+## 6. Configuración de Cuentas y Despliegue
+- **Cuenta Oficial Vercel & GitHub:** Siempre utilizar la cuenta **`5arboles`**.
+- **Cuenta Desactivada:** No utilizar la cuenta con el email de `lagranalma` / `Granalma` para evitar cruces de credenciales o errores de permisos.
+
+
