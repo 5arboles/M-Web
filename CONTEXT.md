@@ -8,65 +8,98 @@ Plataforma e-commerce y experiencia inmersiva para una marca de ropa urbana y st
 - **Paleta de Color:** 100% Monocromático (Negro puro `#000000`, gris grafito, blanco puro de alto contraste).
 - **Tipografías:**
   - Principal (Display / Títulos): **Clash Display** (Bold, Geometric, Brutalist).
-  - Acento (Editorial / Detalles técnicos): **DM Mono Italic** (Technical Monospace).
-  - *Nota para próxima versión:* Considerar **Grenze** (Gothic / Expressive display serif) según feedback del usuario.
+  - Acento (Editorial / Detalles técnicos): **DM Mono Italic** (Technical Monospace, `-0.1em` letter-spacing).
+  - *Opción de inversión probada en Lab:* DM Mono Italic en jerarquía dominante gigante (`text-8xl`) combinada con micro-etiquetas en Clash Display.
+
+---
 
 ## 2. Líneas de Producto Iniciales
 1. **IRON & HEAVY (Gym & Pump Covers):** Remeras oversize para entrenamiento pesado, cultura de gimnasio hardcore y disciplina.
 2. **DARK ROCK (Underground & Noise):** Remeras oscuras inspiradas en el grunge, punk, estética gótica callejera y tipografías distorsionadas.
 3. **BLOKECORE ARCHIVE (Fútbol de Culto & Tribuna):** Estilo futbolero de tablón y retro-moderno con diseño de autor.
-4. **VENTA MAYORISTA (B2B):** Packs escalonados (Starter: 10-25u, Brand: 50-100u, Enterprise: +100u) para marcas, locales y gimnasios.
+4. **VENTA MAYORISTA (B2B):** Packs escalonados (Starter: 10-24u, Brand: 25-99u, Enterprise: +100u) para marcas, locales y gimnasios.
 
-*Nota de alcance:* El personalizador de estampas en vivo (Punto 4) queda pausado para una etapa posterior a pedido del usuario.
+---
 
-## 3. Experiencia 3D (Simulación de Tela 100% — Offscreen Canvas Mode)
-- **Geometría y Composición:**
-  - Plano de tela de alta densidad (120x90 subdivisiones) que cubre el 100% de la pantalla, con el centro compositivo desplazado hacia la derecha.
-  - Fondo negro puro (`#000000`).
-  - La tipografía (**Clash Display** y **DM Mono Italic**) flota en la capa superior (`z-index: 20`) por encima del movimiento sobre la izquierda con viñeta suave.
-- **Integración del Diseño:**
-  - Se utiliza **un único diseño estelar** (`HEAVY DISCIPLINE // 280 GSM`) impreso directamente en la textura de la tela (Canvas 2D 2048x2048), garantizando integración absoluta sin desprendimientos de decal.
-- **Física y Deformación:**
-  - Bordes anclados estáticos (*pinned edges*) mediante función matemática senoidal perimetral.
-  - Ondas de viento con presencia y dinamismo orgánico fluido (`waveIntensity: 0.85`).
-  - **Deformación de Cursor en Elipse Vertical:**
-    - Se reemplazó la deformación esférica por una **elipse vertical alargada** (`radiusX: 0.48`, `radiusY: 1.35`), simulando los pliegues y caídas de columnas naturales que se forman verticalmente en un tejido colgado.
-    - Se restauró la fuerza táctil (`mouseStrength: 0.38`) para que la deformación y el juego de sombras con el foco de luz sean claramente visibles y definidos.
-  - **Inclinación reactiva al Scroll con retorno elástico:**
-    - Al hacer scroll (rueda del mouse o touch), la tela se inclina hacia el frente (*pitch forward*: la parte superior/delantera baja y la trasera sube con inercia de gravedad).
-    - Al detener el scroll, la tela amortigua y regresa suavemente (*smooth spring lerp*) a su posición recta original.
-  - **Sombra de Profundidad Inferior Reactiva:**
-    - Se incorporó un plano de sombra de oclusión difusa con gradiente radial bajo el borde inferior de la tela (`y: -1.82`).
-    - La opacidad y escala de la sombra reaccionan en tiempo real: cuando la tela ondea hacia adelante o se inclina por el scroll, la sombra se oscurece y se proyecta hacia el frente, asentando la tela tridimensionalmente en el espacio.
+## 3. Experiencia 3D Principal (`index.html`)
+- **Simulación de Tela en Hero:**
+  - Plano de tela de alta densidad (120x90 subdivisiones) cubriendo el fondo interactivo.
+  - Deformación de cursor en **elipse vertical alargada** (`radiusX: 0.48`, `radiusY: 1.35`) simulando la caída natural de los pliegues textiles.
+  - Inclinación (*pitch*) reactiva al scroll con amortiguación elástica (*spring lerp*).
+  - Plano de sombra difusa inferior reactiva en `y: -1.82`.
+  - Carrusel automático de fondos ambientales (`fondo.jpg`, `fondo2.jpg`, `fondo3.jpg`) cada 10 segundos.
 
-## 4. Flujo Completo Guiado por Scroll (Versión Actual)
-1. **Hero Index & Fondos Rotativos:**
-   - **Carrusel de Fondos cada 10s (`BackgroundSlideshow`):** Rotación automática con suave crossfade de `fondo.jpg`, `fondo2.jpg` y `fondo3.jpg` en la capa ambiental posterior con viñeta oscura cinematográfica.
-   - La tela 3D interactiva se muestra en el plano frontal sobre el fondo translúcido.
-   - Textos de portada con tipografía **Clash Display** y **DM Mono Italic** (sin comillas y con `-0.1em` de espaciado).
-   - Tags actualizados: `[ BS AS, ARG ]`, `[ FLAGSHIP DROP // 2026 ]` y etiqueta `DISEÑO:`.
-   - Al scrollear hacia abajo, los textos del Hero se desvanecen suavemente (`fade-out` y traslación vertical).
-2. **Galería Horizontal de 10 Diseños (Scroll-Driven Slider):**
-   - Título: **`DISEÑOS`** con la misma animación de reveal cinético del hero.
-   - Subtítulo: `Deslizá hacia abajo para ver todos.`
-   - **Imágenes Reales del Usuario:** Las tarjetas ahora utilizan las fotos de producto y modelos subidas por el usuario (`1.jpg` a `7.jpg`), ocupando la totalidad del cuerpo de la tarjeta (`object-cover`).
-   - **Tooltip Interactivo que Sigue al Cursor:** Fondo negro con opacidad 0.1 (`bg-black/10`), casi transparente con desenfoque de fondo sutil y tipografía blanca pura, conteniendo el título y detalles.
-   - **Botón Blanco al 70% de Ancho:** Posicionado con ancho fijo (`w-[70%]`), entra deslizándose de abajo hacia arriba en rollover y desaparece al salir, sin saltos de tamaño.
-   - Cuenta con barra de progreso superior animada (`[ 01 / 10 ]`).
-3. **Sección Mayorista (Wholesale):**
-   - Título con animación de reveal cinético idéntica al hero.
-   - Etiqueta limpia: `VENTA MAYORISTA` (referencia B2B removida).
-   - Término textil actualizado a **tintas** (reemplazando serigrafía).
-   - Packs: Starter (10-24), Brand (25-99) y Enterprise (100+).
-4. **Footer:**
-   - Cierre institucional limpio con `[ BS AS, ARG ]` (referencia tipográfica decorativa removida).
-El archivo maestro detallado de referencias de diseño, simulación 3D y tipografías se encuentra en [`docs/REFERENCES.md`](file:///Users/wadud/Documents/TRABAJOS/M/M-Web/docs/REFERENCES.md).
+---
 
-## 5. Canales de Conversión
-Toda la interacción de compra y consultas mayoristas está integrada directamente hacia **WhatsApp** mediante enlaces con mensajes dinámicos contextualizados según la prenda o pack elegido.
+## 4. Laboratorio de Experimentación (`gym.html` / `/gym`)
+Página aislada multi-página creada específicamente para testear interacciones avanzadas, física de telas, tipografías cinéticas y galerías alternativas sin tocar la web de producción principal.
 
-## 6. Configuración de Cuentas y Despliegue
-- **Cuenta Oficial Vercel & GitHub:** Siempre utilizar la cuenta **`5arboles`**.
-- **Cuenta Desactivada:** No utilizar la cuenta con el email de `lagranalma` / `Granalma` para evitar cruces de credenciales o errores de permisos.
+- **Ruta de acceso:**
+  - Local: `http://localhost:5173/gym.html`
+  - Producción Vercel: `/gym` o `/gym.html` (configurado mediante `vercel.json` rewrites y `vite.config.ts` multi-page input).
+  - Acceso desde la web principal: Botón `[ LAB: GYM.HTML → ]` en el Hero.
 
+### 4.1. Módulos y Experimentos Activos en `gym.html`
+1. **Fondo Paramétrico 3D + Live Tuner HUD (`GymClothCanvas` & `GymLiveTuner`):**
+   - Panel de control colapsable en tiempo real con 4 presets:
+     - `RAW HEAVY 280G` (caída densa, ondas lentas)
+     - `SUDOR & TENSIÓN` (micro-pliegues de alta frecuencia, tensión)
+     - `DISTORSIÓN ÁCIDA` (deformación cruzada)
+     - `SEDA FLUIDA` (amplitud extendida)
+   - Controles deslizantes de amplitud, velocidad, radio de cursor, fuerza de mouse y sombreado.
+   - Alternancia instantánea entre `fondo.jpg` y `fondo2.jpg`.
 
+2. **Doble Canvas 3D & Slider de Fotos (`SecondaryClothElement`):**
+   - **Prueba de consumo de RAM/GPU:** Demostró que un segundo lienzo WebGL corriendo en paralelo consume solo **~16.4 MB de VRAM** a **60 FPS** estables, gracias a una subdivisión optimizada (`50x35`).
+   - Carrusel de fotos subidas por el usuario (`gym-lunes.jpg`, `gym1.jpg` a `gym5.jpg`) deformadas tridimensionalmente con ondas de tela y cursor reactivo.
+   - Monitor de telemetría de hardware en tiempo real en pantalla.
+
+3. **Efectos Tipográficos Cinéticos e Interactivos (`CursorInteractiveTypography`):**
+   - **01. Linterna / Spotlight Reveal:** El texto en stroke hueco se revela en color blanco sólido siguiendo la posición del cursor mediante máscara radial CSS.
+   - **02. Imán Cinético:** Bloque de texto con atracción magnética y resorte elástico (*Framer Motion Spring*).
+   - **03. Aberración Cromática RGB:** Glitch de canales rojo y cian desfasados en hover.
+   - **04. Blur-in & Tracking Transition:** Transición de entrada y salida con desenfoque óptico (`blur(12px) -> blur(0px)`) y expansión dinámica de `letter-spacing`.
+
+4. **Showcase de Inversión Tipográfica (`InvertedTypographyShowcase`):**
+   - Toggle interactivo para comparar en vivo:
+     - **Estándar:** Clash Display gigante + DM Mono micro.
+     - **Invertido:** DM Mono Italic gigante (`text-8xl`, kerning `-0.1em`) como display protagónico + Clash Display micro como etiqueta técnica. Estética técnica de ingeniería y taller de costura industrial.
+
+5. **Galería Alternativa 02: Strip Accordion & Contact Sheet (`EditorialAccordionGallery`):**
+   - **Modo Accordion Strip:** Tiras fotográficas verticales que se expanden a pantalla ancha al pasar el mouse o tocar, mostrando metadatos de cámara, repeticiones e intensidad.
+   - **Modo Contact Sheet:** Cuadrícula de 6 paneles estilo hoja de contactos analógica con modal Lightbox a pantalla completa.
+
+6. **Galería 01 con Micro-Física Tilt (`CursorInteractiveCard`):**
+   - 6 tarjetas con textos poéticos sobre el sudor, la disciplina y el peso muerto.
+   - Inclinación 3D magnética en base a las coordenadas del puntero, paralaje inverso de imagen y destello especular superior. Consumo de GPU nulo (CSS 3D Transforms).
+
+7. **Manifiesto del Hierro y Tabla Comparativa:**
+   - 3 pilares conceptuales (*Inmutabilidad*, *Fisiología del Sudor*, *Moldería de Combate 280G*).
+   - Tabla comparativa técnica para decidir qué elementos trasladar a la web de producción oficial.
+
+---
+
+## 5. Inventario de Imágenes del Proyecto
+- **Imágenes de Catálogo:** `/images/1.jpg` a `/images/7.jpg`, `model-489-preview.jpg`.
+- **Fondos Ambientales:** `/images/fondo.jpg`, `/images/fondo2.jpg`, `/images/fondo3.jpg`.
+- **Colección Gym / Disciplina (Nuevas):**
+  - `gym-lunes.jpg`: Barra olímpica en piso de goma ("LUNES // NO ONE CARES. WORK HARDER.").
+  - `gym1.jpg`: Atleta industrial en sesión de fatiga y sombras.
+  - `gym2.jpg`: Manos con magnesio aferradas a mancuernas de acero moleteado.
+  - `gym3.jpg`: Hoja de contactos fotográfica de 5 fotogramas ("BY ANY MEANS NECESSARY // IRONWILLED").
+  - `gym4.jpg`: Tríptico de cuerdas de batalla, assault bike y slam ball.
+  - `gym5.jpg`: Retrato con gorra y pump cover ("CONDITIONS CHANGE // YOU REMAIN STEADY").
+- **Logos:** `/images/logo-m.png`, `/images/logo-M-b.png`.
+
+*Nota:* Las imágenes se encuentran sincronizadas tanto en `/public/images/` como en `/dist/images/`.
+
+---
+
+## 6. Configuración de Cuentas, Git & Despliegue
+- **Cuenta Oficial:** Siempre utilizar la cuenta **`5arboles`** para GitHub y Vercel.
+- **Cuenta Desactivada:** **Nunca** utilizar la cuenta `lagranalma` para evitar conflictos de credenciales.
+- **Repositorio Remoto:** `https://github.com/5arboles/M-Web` (Rama: `main`).
+- **Build & Despliegue:**
+  - Vercel detecta automáticamente los pushes en `main`.
+  - Configuración multi-página: `index.html` (principal) y `gym.html` (experimentos).
+  - Comando de build: `npm run build` (`tsc && vite build`).
