@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ArrowDown, Sparkles, Layers, Activity, Flame, Shield } from 'lucide-react'
+import { ArrowLeft, ArrowDown, Sparkles, Layers, Activity, Flame, Shield, Cpu, Type, Image as ImageIcon } from 'lucide-react'
 import { GymClothCanvas, ClothParams } from '@/components/experiments/GymClothCanvas'
 import { CursorInteractiveCard, GymCardItem } from '@/components/experiments/CursorInteractiveCard'
 import { GymLiveTuner, PRESETS, PresetDef } from '@/components/experiments/GymLiveTuner'
+import { SecondaryClothElement } from '@/components/experiments/SecondaryClothElement'
+import { CursorInteractiveTypography } from '@/components/experiments/CursorInteractiveTypography'
+import { InvertedTypographyShowcase } from '@/components/experiments/InvertedTypographyShowcase'
+import { EditorialAccordionGallery } from '@/components/experiments/EditorialAccordionGallery'
 
 // Datos de las tarjetas con textos poéticos sobre gimnasio, disciplina y sudor
 const GYM_CARDS_DATA: GymCardItem[] = [
@@ -106,34 +110,55 @@ export const GymExperimentPage: React.FC = () => {
       />
 
       {/* 4. Barra Superior de Navegación del Laboratorio */}
-      <header className="sticky top-0 z-40 w-full bg-black/80 backdrop-blur-md border-b border-white/10 px-6 sm:px-10 py-3.5 flex items-center justify-between text-xs font-mono">
-        <div className="flex items-center gap-4">
+      <header className="sticky top-0 z-40 w-full bg-black/80 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+        <div className="flex items-center gap-3">
           <a
             href="/"
             className="group flex items-center gap-2 px-3 py-1 bg-white/10 hover:bg-white text-zinc-300 hover:text-black transition-colors rounded uppercase tracking-wider text-[11px]"
           >
             <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
-            <span>VOLVER A LA WEB PRINCIPAL</span>
+            <span>WEB PRINCIPAL</span>
           </a>
-          <span className="hidden md:inline text-zinc-600">//</span>
-          <span className="hidden md:inline text-zinc-400">LABORATORIO DE EXPERIMENTACIÓN 3D</span>
+          <span className="text-zinc-600">//</span>
+          <span className="text-zinc-300 font-bold uppercase tracking-wider hidden sm:inline">
+            LAB EXPERIMENTAL M
+          </span>
         </div>
+
+        {/* Quick section links */}
+        <nav className="hidden lg:flex items-center gap-3 text-[11px] text-zinc-400">
+          <a href="#secondary-cloth" className="hover:text-white transition-colors">
+            [ 1. TELA 3D SLIDER & RAM ]
+          </a>
+          <a href="#typo-effects" className="hover:text-white transition-colors">
+            [ 2. EFECTOS TIPOGRÁFICOS ]
+          </a>
+          <a href="#inverted-typo" className="hover:text-white transition-colors">
+            [ 3. INVERTIR DM MONO ]
+          </a>
+          <a href="#accordion-gallery" className="hover:text-white transition-colors">
+            [ 4. ACCORDION FOTOS ]
+          </a>
+          <a href="#cards-gallery" className="hover:text-white transition-colors">
+            [ 5. TILT CARDS ]
+          </a>
+        </nav>
 
         <div className="flex items-center gap-3">
           <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/15 rounded text-[10px] text-zinc-300">
             <Activity className="w-3 h-3 text-white animate-pulse" />
-            <span>PRESET: {activePreset.name}</span>
+            <span>{activePreset.name}</span>
           </div>
 
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span className="text-[10px] text-zinc-400 uppercase tracking-widest">[ 60 FPS LIVE ]</span>
+            <span className="text-[10px] text-zinc-400 uppercase tracking-widest">[ 60 FPS ]</span>
           </div>
         </div>
       </header>
 
       {/* 5. Contenido Modular Scrolleable */}
-      <main className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-12 space-y-32">
+      <main className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-12 space-y-36">
         {/* ========================================================
             SECCIÓN 01: HERO POÉTICO // FONDO 1 (HEAVY GYM RAW)
            ======================================================== */}
@@ -223,25 +248,53 @@ export const GymExperimentPage: React.FC = () => {
           <div className="flex items-center gap-2 font-mono text-xs text-zinc-500 pt-8 border-t border-white/10">
             <ArrowDown className="w-4 h-4 text-white animate-bounce" />
             <span className="uppercase tracking-wider">
-              SCROLL HACIA ABAJO PARA PROBAR LA GALERÍA CON CURSOR REACTIVO ↓
+              SCROLL HACIA ABAJO PARA EXPLORAR LOS NUEVOS EXPERIMENTOS ↓
             </span>
           </div>
         </section>
 
         {/* ========================================================
-            SECCIÓN 02: GALERÍA CON MICRO-FÍSICA AL PASAR EL CURSOR
+            SECCIÓN 02: SLIDER 3D CON FÍSICA DE TELA & BENCHMARK DE RAM
            ======================================================== */}
-        <section className="space-y-8">
+        <section id="secondary-cloth" className="scroll-mt-24">
+          <SecondaryClothElement />
+        </section>
+
+        {/* ========================================================
+            SECCIÓN 03: EFECTOS EN TEXTOS & TIPOGRAFÍAS CON EL CURSOR
+           ======================================================== */}
+        <section id="typo-effects" className="scroll-mt-24">
+          <CursorInteractiveTypography />
+        </section>
+
+        {/* ========================================================
+            SECCIÓN 04: INVERSIÓN TIPOGRÁFICA (DM MONO GIGANTE VS CLASH)
+           ======================================================== */}
+        <section id="inverted-typo" className="scroll-mt-24">
+          <InvertedTypographyShowcase />
+        </section>
+
+        {/* ========================================================
+            SECCIÓN 05: GALERÍA ALTERNATIVA // STRIP ACCORDION & CONTACT GRID
+           ======================================================== */}
+        <section id="accordion-gallery" className="scroll-mt-24">
+          <EditorialAccordionGallery />
+        </section>
+
+        {/* ========================================================
+            SECCIÓN 06: GALERÍA CON MICRO-FÍSICA AL PASAR EL CURSOR (CARDS TILT)
+           ======================================================== */}
+        <section id="cards-gallery" className="space-y-8 scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/15 pb-6">
             <div className="space-y-2">
               <div className="flex items-center gap-2 font-mono text-xs text-zinc-400">
                 <Sparkles className="w-4 h-4 text-white" />
                 <span className="uppercase tracking-widest">
-                  SECCIÓN 02 // MICRO-FÍSICA: IMÁGENES QUE SE MUEVEN CON EL CURSOR
+                  SECCIÓN 06 // MICRO-FÍSICA: TARJETAS CON PARALAJE INVERSO AL PASAR EL CURSOR
                 </span>
               </div>
               <h2 className="font-display font-black text-4xl sm:text-6xl text-white uppercase tracking-tight">
-                GALERÍA DE DISCIPLINA
+                GALERÍA DE DISCIPLINA 01
               </h2>
               <p className="font-mono italic text-sm text-zinc-400 max-w-xl">
                 Cada tarjeta reacciona al cursor con inclinación magnética 3D y desplazamiento de profundidad. Animaciones de entrada y salida fluidas según el viewport.
@@ -266,14 +319,14 @@ export const GymExperimentPage: React.FC = () => {
         </section>
 
         {/* ========================================================
-            SECCIÓN 03: FONDO 2 // WE ARE PRESSED BUT NOT CRUSHED
+            SECCIÓN 07: FONDO 2 // WE ARE PRESSED BUT NOT CRUSHED
            ======================================================== */}
         <section className="min-h-[70vh] flex flex-col justify-center border-t border-b border-white/10 py-16">
           <div className="max-w-2xl space-y-6">
             <div className="flex items-center gap-2 font-mono text-xs text-zinc-400">
               <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
               <span className="uppercase tracking-widest">
-                SECCIÓN 03 // FONDO 2: DISTORSIÓN ÁCIDA &amp; PLIEGUES CRUZADOS
+                SECCIÓN 07 // FONDO 2: DISTORSIÓN ÁCIDA &amp; PLIEGUES CRUZADOS
               </span>
             </div>
 
@@ -305,12 +358,12 @@ export const GymExperimentPage: React.FC = () => {
         </section>
 
         {/* ========================================================
-            SECCIÓN 04: BLOQUE INFERIOR // MÁS TEXTOS & MANIFIESTO
+            SECCIÓN 08: BLOQUE INFERIOR // MÁS TEXTOS & MANIFIESTO
            ======================================================== */}
-        <section className="space-y-12 pb-16">
+        <section id="manifesto" className="space-y-12 pb-16 scroll-mt-24">
           <div className="border-b border-white/10 pb-4">
             <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest block">
-              SECCIÓN 04 // ANÁLISIS EDITORIAL Y TEXTIL
+              SECCIÓN 08 // ANÁLISIS EDITORIAL Y TEXTIL
             </span>
             <h2 className="font-display font-black text-3xl sm:text-5xl text-white uppercase tracking-tight mt-1">
               MANIFIESTO DEL HIERRO
@@ -382,25 +435,43 @@ export const GymExperimentPage: React.FC = () => {
                 </thead>
                 <tbody className="divide-y divide-white/10 text-zinc-300 text-[11px]">
                   <tr>
-                    <td className="py-2.5 font-bold text-white">01. RAW HEAVY 280G</td>
+                    <td className="py-2.5 font-bold text-white">01. RAW HEAVY 280G (3D)</td>
                     <td className="py-2.5 italic">Ondas lentas, caída firme, sombra profunda</td>
                     <td className="py-2.5 text-emerald-400">Muy bajo (&lt; 2%)</td>
                     <td className="py-2.5">Hero principal de la web y portada</td>
                   </tr>
                   <tr>
-                    <td className="py-2.5 font-bold text-white">02. SUDOR &amp; TENSIÓN</td>
-                    <td className="py-2.5 italic">Micro-ondas vivas, cursor elíptico tenso</td>
-                    <td className="py-2.5 text-emerald-400">Bajo (~2.5%)</td>
-                    <td className="py-2.5">Línea de entrenamiento pesado / Gym drop</td>
+                    <td className="py-2.5 font-bold text-white">02. SEGUNDO CANVAS 3D (SLIDER)</td>
+                    <td className="py-2.5 italic">Ripples al pasar el cursor + slide de fotos</td>
+                    <td className="py-2.5 text-emerald-400">~16.4 MB VRAM (Totalmente viable)</td>
+                    <td className="py-2.5">Excelente para tarjeta de producto destacada</td>
                   </tr>
                   <tr>
-                    <td className="py-2.5 font-bold text-white">03. DISTORSIÓN ÁCIDA</td>
-                    <td className="py-2.5 italic">Ondas cruzadas agresivas y mayor balanceo</td>
-                    <td className="py-2.5 text-emerald-400">Bajo (~2.8%)</td>
-                    <td className="py-2.5">Línea Rock underground y concierto</td>
+                    <td className="py-2.5 font-bold text-white">03. LINTERNA / REVEAL TIPOGRÁFICO</td>
+                    <td className="py-2.5 italic">Efecto linterna radial al pasar el cursor</td>
+                    <td className="py-2.5 text-emerald-400">Cero GPU (CSS Mask)</td>
+                    <td className="py-2.5">Títulos de colecciones y drops especiales</td>
                   </tr>
                   <tr>
-                    <td className="py-2.5 font-bold text-white">04. MICRO-TILT TARJETAS</td>
+                    <td className="py-2.5 font-bold text-white">04. IMÁN CINÉTICO TIPOGRÁFICO</td>
+                    <td className="py-2.5 italic">El texto sigue al cursor con rebote elástico</td>
+                    <td className="py-2.5 text-emerald-400">60 FPS (Framer Motion Spring)</td>
+                    <td className="py-2.5">Botones de compra / Call-to-actions principales</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2.5 font-bold text-white">05. INVERSIÓN DM MONO GIGANTE</td>
+                    <td className="py-2.5 italic">DM Mono -0.1em gigante + Clash Display micro</td>
+                    <td className="py-2.5 text-emerald-400">0% GPU (Puro CSS)</td>
+                    <td className="py-2.5">Look técnico / Brutalismo industrial de gimnasio</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2.5 font-bold text-white">06. STRIP ACCORDION GALLERY</td>
+                    <td className="py-2.5 italic">Expansión suave al pasar el cursor</td>
+                    <td className="py-2.5 text-emerald-400">Ultraligero</td>
+                    <td className="py-2.5">Lookbook de campaña o galería de fotos</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2.5 font-bold text-white">07. MICRO-TILT TARJETAS</td>
                     <td className="py-2.5 italic">Inclinación 3D + brillo al pasar el mouse</td>
                     <td className="py-2.5 text-emerald-400">Cero WebGL (CSS Puro)</td>
                     <td className="py-2.5">Todas las tarjetas de productos de la tienda</td>
