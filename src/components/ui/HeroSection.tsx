@@ -39,6 +39,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ activeFondoTitle }) =>
             <span className="hidden sm:inline-block font-mono text-[10px] tracking-widest text-zinc-400 border border-white/20 px-2 py-0.5 rounded">
               DROP 2026
             </span>
+            <a
+              href="/gym.html"
+              className="hidden sm:inline-flex items-center gap-1 font-mono text-[10px] tracking-widest text-zinc-400 hover:text-white border border-white/20 hover:border-white px-2 py-0.5 rounded transition-colors"
+              title="Abrir Laboratorio de Experimentación 3D"
+            >
+              <span>LAB: GYM.HTML →</span>
+            </a>
           </div>
 
           <div className="flex items-center gap-2">

@@ -1,7 +1,16 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/gym",
+      "destination": "/gym.html"
+    },
+    {
+      "source": "/gym.html",
+      "destination": "/gym.html"
+    },
+    {
+      "source": "/((?!gym).*)",
       "destination": "/index.html"
     }
   ]
