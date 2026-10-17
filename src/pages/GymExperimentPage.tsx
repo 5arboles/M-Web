@@ -1,15 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ArrowDown, Sparkles, Layers, Activity, Flame, Shield, Cpu, Type, Image as ImageIcon } from 'lucide-react'
+import { ArrowLeft, ArrowDown, Sparkles, Layers, Activity, Flame, Shield } from 'lucide-react'
 import { GymClothCanvas, ClothParams } from '@/components/experiments/GymClothCanvas'
 import { CursorInteractiveCard, GymCardItem } from '@/components/experiments/CursorInteractiveCard'
-import { GymLiveTuner, PRESETS, PresetDef } from '@/components/experiments/GymLiveTuner'
 import { SecondaryClothElement } from '@/components/experiments/SecondaryClothElement'
 import { CursorInteractiveTypography } from '@/components/experiments/CursorInteractiveTypography'
 import { InvertedTypographyShowcase } from '@/components/experiments/InvertedTypographyShowcase'
 import { EditorialAccordionGallery } from '@/components/experiments/EditorialAccordionGallery'
 
-// Datos de las tarjetas con textos poéticos sobre gimnasio, disciplina y sudor
+// Estilo fijado: SUDOR & TENSIÓN
+const SUDOR_TENSION_PARAMS: ClothParams = {
+  waveIntensity: 1.15,
+  waveSpeed: 2.2,
+  mouseStrength: 0.52,
+  radiusX: 0.42,
+  radiusY: 1.55,
+  baseRotX: -0.38,
+  backDarkness: 0.55,
+}
+
+const GYM_BACKGROUND_TEXTURE = '/images/gym-lunes.jpg'
+
+// Datos de las tarjetas con fotos de gimnasio y textos poéticos sobre esfuerzo, disciplina y sudor
 const GYM_CARDS_DATA: GymCardItem[] = [
   {
     id: 'gym-01',
@@ -18,7 +30,7 @@ const GYM_CARDS_DATA: GymCardItem[] = [
     reps: '10x10 RITUAL',
     subtext: 'HEAVY DISCIPLINE',
     weightGsm: '280 GSM',
-    image: '/images/1.jpg',
+    image: '/images/gym-lunes.jpg',
     poeticNote:
       'La mano que sangra hoy sostiene el peso del mundo mañana. La fricción del moleteado de acero es el primer bautismo de la disciplina.',
   },
@@ -29,7 +41,7 @@ const GYM_CARDS_DATA: GymCardItem[] = [
     reps: 'SERIE DESTRUCTIVA',
     subtext: 'COLD MORNING',
     weightGsm: '280 GSM',
-    image: '/images/2.jpg',
+    image: '/images/gym1.jpg',
     poeticNote:
       'Nadie te mira. No hay público ni aplausos. Solo el vapor de tu aliento contra el espejo helado y el peso muerto esperando en la tarima.',
   },
@@ -40,7 +52,7 @@ const GYM_CARDS_DATA: GymCardItem[] = [
     reps: 'HASTA EL FALLO',
     subtext: 'DEEP PRESSURE',
     weightGsm: '280 GSM',
-    image: '/images/3.jpg',
+    image: '/images/gym2.jpg',
     poeticNote:
       'La fibra muscular se quiebra microscópicamente para reconstruirse más densa. Lo mismo le ocurre al carácter que rehúsa rendirse.',
   },
@@ -51,7 +63,7 @@ const GYM_CARDS_DATA: GymCardItem[] = [
     reps: 'CARGA PROGRESIVA',
     subtext: 'HEAVY RAW FIT',
     weightGsm: '280 GSM',
-    image: '/images/4.jpg',
+    image: '/images/gym3.jpg',
     poeticNote:
       'La motivación dura tres minutos frente al espejo. La disciplina dura trescientas repeticiones pesadas cuando el cuerpo implora frenar.',
   },
@@ -62,7 +74,7 @@ const GYM_CARDS_DATA: GymCardItem[] = [
     reps: 'PUMP COVER DROP',
     subtext: 'PEINADO 280G',
     weightGsm: '280 GSM',
-    image: '/images/5.jpg',
+    image: '/images/gym4.jpg',
     poeticNote:
       'Caída recta y rígida. Algodón peinado denso para absorber el sudor de la última serie forzada y resistir el roce violento de la barra en la espalda.',
   },
@@ -73,43 +85,23 @@ const GYM_CARDS_DATA: GymCardItem[] = [
     reps: '1RM MÁXIMO',
     subtext: 'RAW CONCRETE',
     weightGsm: '280 GSM',
-    image: '/images/6.jpg',
+    image: '/images/gym5.jpg',
     poeticNote:
       'Descender con control milimétrico. Explotar hacia arriba con furia disciplinada. El hierro es el único juez del mundo que nunca te miente.',
   },
 ]
 
 export const GymExperimentPage: React.FC = () => {
-  // Parámetros activos de la simulación 3D
-  const [params, setParams] = useState<ClothParams>(PRESETS[0].params)
-  const [activePreset, setActivePreset] = useState<PresetDef>(PRESETS[0])
-
-  // Fondo activo de la simulación 3D (fondo.jpg o fondo2.jpg)
-  const [currentTextureUrl, setCurrentTextureUrl] = useState<string>('/images/fondo.jpg')
-
-  const handleSelectPreset = (preset: PresetDef) => {
-    setActivePreset(preset)
-    setParams(preset.params)
-  }
-
   return (
     <div className="relative min-h-screen bg-black text-[#f4f4f4] font-sans selection:bg-white selection:text-black">
-      {/* 1. Fondo 3D interactivo con física paramétrica */}
-      <GymClothCanvas textureUrl={currentTextureUrl} params={params} />
+      {/* 1. Fondo 3D interactivo fijado con física "SUDOR & TENSIÓN" */}
+      <GymClothCanvas textureUrl={GYM_BACKGROUND_TEXTURE} params={SUDOR_TENSION_PARAMS} />
 
       {/* 2. Capa ambiental y viñetas */}
       <div className="fixed inset-0 pointer-events-none z-[1] bg-gradient-to-r from-black/85 via-black/40 to-transparent" />
       <div className="fixed inset-0 pointer-events-none z-[1] bg-gradient-to-b from-black/80 via-transparent to-black/90" />
 
-      {/* 3. Panel Flotante Live Tuner */}
-      <GymLiveTuner
-        currentParams={params}
-        onChangeParams={setParams}
-        activePresetName={activePreset.name}
-        onSelectPreset={handleSelectPreset}
-      />
-
-      {/* 4. Barra Superior de Navegación del Laboratorio */}
+      {/* 3. Barra Superior de Navegación del Laboratorio */}
       <header className="sticky top-0 z-40 w-full bg-black/80 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
         <div className="flex items-center gap-3">
           <a
@@ -145,9 +137,9 @@ export const GymExperimentPage: React.FC = () => {
         </nav>
 
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/15 rounded text-[10px] text-zinc-300">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/15 rounded text-[10px] text-zinc-300">
             <Activity className="w-3 h-3 text-white animate-pulse" />
-            <span>{activePreset.name}</span>
+            <span>SUDOR &amp; TENSIÓN</span>
           </div>
 
           <div className="flex items-center gap-1.5">
@@ -157,17 +149,17 @@ export const GymExperimentPage: React.FC = () => {
         </div>
       </header>
 
-      {/* 5. Contenido Modular Scrolleable */}
+      {/* 4. Contenido Modular Scrolleable */}
       <main className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-12 space-y-36">
         {/* ========================================================
-            SECCIÓN 01: HERO POÉTICO // FONDO 1 (HEAVY GYM RAW)
+            SECCIÓN 01: HERO POÉTICO // BITÁCORA DE HIERRO
            ======================================================== */}
         <section className="min-h-[85vh] flex flex-col justify-between py-8">
           {/* Header de la sección */}
           <div className="flex items-center gap-2 font-mono text-xs text-zinc-500">
             <span className="w-2 h-2 rounded-full bg-white" />
             <span className="uppercase tracking-widest text-zinc-400">
-              SECCIÓN 01 // FONDO 1: JUST TRYING MY LUCK (HEAVYWEIGHT RAW)
+              SECCIÓN 01 // BITÁCORA DE HIERRO: SUDOR &amp; TENSIÓN
             </span>
           </div>
 
@@ -211,36 +203,6 @@ export const GymExperimentPage: React.FC = () => {
                 <span className="text-zinc-500 block text-[9px] uppercase">TEJIDO:</span>
                 <strong className="text-white text-sm">280 GSM RAW</strong>
               </div>
-            </div>
-
-            {/* Selector de fondo rápido */}
-            <div className="flex items-center gap-3 pt-2 font-mono text-xs">
-              <button
-                onClick={() => {
-                  setCurrentTextureUrl('/images/fondo.jpg')
-                  handleSelectPreset(PRESETS[0])
-                }}
-                className={`px-3 py-1.5 rounded uppercase tracking-wider transition-all border ${
-                  currentTextureUrl === '/images/fondo.jpg'
-                    ? 'bg-white text-black font-bold border-white'
-                    : 'bg-black/60 text-zinc-400 border-white/15 hover:text-white'
-                }`}
-              >
-                PROBAR FONDO 1 (LUCK // PESADO)
-              </button>
-              <button
-                onClick={() => {
-                  setCurrentTextureUrl('/images/fondo2.jpg')
-                  handleSelectPreset(PRESETS[2])
-                }}
-                className={`px-3 py-1.5 rounded uppercase tracking-wider transition-all border ${
-                  currentTextureUrl === '/images/fondo2.jpg'
-                    ? 'bg-white text-black font-bold border-white'
-                    : 'bg-black/60 text-zinc-400 border-white/15 hover:text-white'
-                }`}
-              >
-                PROBAR FONDO 2 (SKELETON // ÁCIDO)
-              </button>
             </div>
           </div>
 
@@ -326,7 +288,7 @@ export const GymExperimentPage: React.FC = () => {
             <div className="flex items-center gap-2 font-mono text-xs text-zinc-400">
               <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
               <span className="uppercase tracking-widest">
-                SECCIÓN 07 // FONDO 2: DISTORSIÓN ÁCIDA &amp; PLIEGUES CRUZADOS
+                SECCIÓN 07 // RESISTENCIA: WE ARE PRESSED BUT NOT CRUSHED
               </span>
             </div>
 
@@ -342,18 +304,6 @@ export const GymExperimentPage: React.FC = () => {
             <p className="font-mono italic text-sm sm:text-base text-zinc-300 leading-relaxed border-l-2 border-white/50 pl-4 bg-black/50 backdrop-blur-sm py-2">
               El ácido láctico arde en los cuádriceps en la última repetición. La respiración se quiebra en la garganta. Hay una belleza salvaje en llevar el cuerpo al límite exacto antes del colapso, donde la mente deja de razonar y solo queda el instinto del levantador. La tela ondea con mayor frecuencia, reflejando el pulso cardíaco acelerado.
             </p>
-
-            <div className="pt-2">
-              <button
-                onClick={() => {
-                  setCurrentTextureUrl('/images/fondo2.jpg')
-                  handleSelectPreset(PRESETS[2])
-                }}
-                className="px-4 py-2 bg-white text-black font-display font-bold text-xs uppercase tracking-wider rounded hover:bg-zinc-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]"
-              >
-                APLICAR EFECTO DE DISTORSIÓN ÁCIDA A LA TELA 3D
-              </button>
-            </div>
           </div>
         </section>
 
@@ -435,10 +385,10 @@ export const GymExperimentPage: React.FC = () => {
                 </thead>
                 <tbody className="divide-y divide-white/10 text-zinc-300 text-[11px]">
                   <tr>
-                    <td className="py-2.5 font-bold text-white">01. RAW HEAVY 280G (3D)</td>
-                    <td className="py-2.5 italic">Ondas lentas, caída firme, sombra profunda</td>
-                    <td className="py-2.5 text-emerald-400">Muy bajo (&lt; 2%)</td>
-                    <td className="py-2.5">Hero principal de la web y portada</td>
+                    <td className="py-2.5 font-bold text-white">01. SUDOR &amp; TENSIÓN (3D)</td>
+                    <td className="py-2.5 italic">Micro-ondas vivas, caída tensa y sombreado profundo</td>
+                    <td className="py-2.5 text-emerald-400">Muy bajo (&lt; 2.5%)</td>
+                    <td className="py-2.5">Fondo y atmósfera principal activa</td>
                   </tr>
                   <tr>
                     <td className="py-2.5 font-bold text-white">02. SEGUNDO CANVAS 3D (SLIDER)</td>

@@ -77,7 +77,6 @@ export const CursorInteractiveTypography: React.FC = () => {
               <Eye className="w-3.5 h-3.5" />
               <span>01. SPOTLIGHT REVEAL // LINTERNA</span>
             </span>
-            <span className="text-[10px] text-zinc-500 uppercase">[ PASÁ EL CURSOR ARRIBA ]</span>
           </div>
 
           <div
