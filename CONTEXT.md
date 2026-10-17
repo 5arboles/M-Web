@@ -40,14 +40,10 @@ Página aislada multi-página creada específicamente para testear interacciones
   - Acceso desde la web principal: Botón `[ LAB: GYM.HTML → ]` en el Hero.
 
 ### 4.1. Módulos y Experimentos Activos en `gym.html`
-1. **Fondo Paramétrico 3D + Live Tuner HUD (`GymClothCanvas` & `GymLiveTuner`):**
-   - Panel de control colapsable en tiempo real con 4 presets:
-     - `RAW HEAVY 280G` (caída densa, ondas lentas)
-     - `SUDOR & TENSIÓN` (micro-pliegues de alta frecuencia, tensión)
-     - `DISTORSIÓN ÁCIDA` (deformación cruzada)
-     - `SEDA FLUIDA` (amplitud extendida)
-   - Controles deslizantes de amplitud, velocidad, radio de cursor, fuerza de mouse y sombreado.
-   - Alternancia instantánea entre `fondo.jpg` y `fondo2.jpg`.
+1. **Fondo Paramétrico 3D (Estilo: SUDOR & TENSIÓN):**
+   - Estilo fijado por defecto en la simulación 3D: `SUDOR & TENSIÓN` (`waveIntensity: 1.15`, `waveSpeed: 2.2`, `mouseStrength: 0.52`).
+   - Fondos y texturas actualizados a fotografías reales de entrenamiento (`gym-lunes.jpg`, `gym2.jpg`, `gym3.jpg`).
+   - Interfaz limpia sin controles flotantes ni botones temporales de test.
 
 2. **Doble Canvas 3D & Slider de Fotos (`SecondaryClothElement`):**
    - **Prueba de consumo de RAM/GPU:** Demostró que un segundo lienzo WebGL corriendo en paralelo consume solo **~16.4 MB de VRAM** a **60 FPS** estables, gracias a una subdivisión optimizada (`50x35`).
