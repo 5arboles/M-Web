@@ -9,11 +9,11 @@ export const Footer: React.FC = () => {
         {/* Giant Brand Sign-off */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b border-white/10">
           <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8">
-            {/* Logo M un poco más grande */}
+            {/* Logo M.svg */}
             <img
-              src="/images/logo-M-b.png"
+              src="/M.svg"
               alt="Logo M Archive"
-              className="w-[150px] sm:w-[190px] h-auto object-contain filter drop-shadow-[0_4px_25px_rgba(255,255,255,0.15)]"
+              className="w-[110px] sm:w-[140px] h-auto object-contain filter drop-shadow-[0_4px_25px_rgba(255,255,255,0.15)]"
             />
 
             {/* Frase de ropa al lado, tipo streetwear */}

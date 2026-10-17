@@ -1,5 +1,5 @@
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ArrowDown, Sparkles, Layers, Activity, Flame, Shield } from 'lucide-react'
 import { GymClothCanvas, ClothParams } from '@/components/experiments/GymClothCanvas'
 import { CursorInteractiveCard, GymCardItem } from '@/components/experiments/CursorInteractiveCard'
@@ -19,7 +19,21 @@ const SUDOR_TENSION_PARAMS: ClothParams = {
   backDarkness: 0.55,
 }
 
-const GYM_BACKGROUND_TEXTURE = '/images/gym-lunes.jpg'
+// 3 imágenes de gym para los fondos rotativos de gym.html
+const GYM_BACKGROUNDS = [
+  {
+    url: '/images/gym-lunes.jpg',
+    title: 'LUNES // NO ONE CARES. WORK HARDER.',
+  },
+  {
+    url: '/images/gym2.jpg',
+    title: 'KNURLED STEEL & CHALK // HEAVY GRIP',
+  },
+  {
+    url: '/images/gym3.jpg',
+    title: 'BY ANY MEANS NECESSARY // IRONWILLED',
+  },
+]
 
 // Datos de las tarjetas con fotos de gimnasio y textos poéticos sobre esfuerzo, disciplina y sudor
 const GYM_CARDS_DATA: GymCardItem[] = [
@@ -92,10 +106,38 @@ const GYM_CARDS_DATA: GymCardItem[] = [
 ]
 
 export const GymExperimentPage: React.FC = () => {
+  const [bgIndex, setBgIndex] = useState(0)
+
+  // Rotación automática de los 3 fondos de gym cada 10 segundos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBgIndex((prev) => (prev + 1) % GYM_BACKGROUNDS.length)
+    }, 10000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const activeGymBg = GYM_BACKGROUNDS[bgIndex]
+
   return (
     <div className="relative min-h-screen bg-black text-[#f4f4f4] font-sans selection:bg-white selection:text-black">
-      {/* 1. Fondo 3D interactivo fijado con física "SUDOR & TENSIÓN" */}
-      <GymClothCanvas textureUrl={GYM_BACKGROUND_TEXTURE} params={SUDOR_TENSION_PARAMS} />
+      {/* 0. Capa ambiental de los 3 fondos de gym con crossfade */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <AnimatePresence mode="sync">
+          <motion.img
+            key={activeGymBg.url}
+            src={activeGymBg.url}
+            alt={activeGymBg.title}
+            initial={{ opacity: 0, scale: 1.06 }}
+            animate={{ opacity: 0.22, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.8, ease: 'easeInOut' }}
+            className="absolute inset-0 w-full h-full object-cover grayscale contrast-125"
+          />
+        </AnimatePresence>
+      </div>
+
+      {/* 1. Fondo 3D interactivo fijado con física "SUDOR & TENSIÓN" y los 3 fondos de gym */}
+      <GymClothCanvas textureUrl={activeGymBg.url} params={SUDOR_TENSION_PARAMS} />
 
       {/* 2. Capa ambiental y viñetas */}
       <div className="fixed inset-0 pointer-events-none z-[1] bg-gradient-to-r from-black/85 via-black/40 to-transparent" />
@@ -104,6 +146,11 @@ export const GymExperimentPage: React.FC = () => {
       {/* 3. Barra Superior de Navegación del Laboratorio */}
       <header className="sticky top-0 z-40 w-full bg-black/80 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
         <div className="flex items-center gap-3">
+          <img
+            src="/M.svg"
+            alt="Logo M"
+            className="w-8 h-8 object-contain filter drop-shadow-[0_2px_10px_rgba(255,255,255,0.2)]"
+          />
           <a
             href="/"
             className="group flex items-center gap-2 px-3 py-1 bg-white/10 hover:bg-white text-zinc-300 hover:text-black transition-colors rounded uppercase tracking-wider text-[11px]"
@@ -155,11 +202,23 @@ export const GymExperimentPage: React.FC = () => {
             SECCIÓN 01: HERO POÉTICO // BITÁCORA DE HIERRO
            ======================================================== */}
         <section className="min-h-[85vh] flex flex-col justify-between py-8">
-          {/* Header de la sección */}
-          <div className="flex items-center gap-2 font-mono text-xs text-zinc-500">
-            <span className="w-2 h-2 rounded-full bg-white" />
-            <span className="uppercase tracking-widest text-zinc-400">
-              SECCIÓN 01 // BITÁCORA DE HIERRO: SUDOR &amp; TENSIÓN
+          {/* Header de la sección con Logo M.svg */}
+          <div className="flex items-center justify-between gap-4 font-mono text-xs text-zinc-500">
+            <div className="flex items-center gap-3">
+              <img
+                src="/M.svg"
+                alt="Logo M"
+                className="w-[68px] sm:w-[82px] h-auto object-contain filter drop-shadow-[0_2px_12px_rgba(255,255,255,0.18)]"
+              />
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-white" />
+                <span className="uppercase tracking-widest text-zinc-400">
+                  SECCIÓN 01 // BITÁCORA DE HIERRO: SUDOR &amp; TENSIÓN
+                </span>
+              </div>
+            </div>
+            <span className="hidden md:inline text-[10px] text-zinc-500 uppercase tracking-widest">
+              [ FONDO ACTIVO {bgIndex + 1}/3: {activeGymBg.title} ]
             </span>
           </div>
 
@@ -434,8 +493,21 @@ export const GymExperimentPage: React.FC = () => {
       </main>
 
       {/* Footer del Lab */}
-      <footer className="relative z-10 border-t border-white/10 py-6 px-6 sm:px-10 text-center font-mono text-[11px] text-zinc-500">
-        <span>M ARCHIVE // LAB DE EXPERIMENTACIÓN AISLADO // BUENOS AIRES 2026</span>
+      <footer className="relative z-10 border-t border-white/10 py-8 px-6 sm:px-10 flex flex-col sm:flex-row items-center justify-between gap-4 max-w-7xl mx-auto font-mono text-[11px] text-zinc-500">
+        <div className="flex items-center gap-4">
+          <img
+            src="/M.svg"
+            alt="Logo M Archive"
+            className="w-10 h-10 object-contain filter drop-shadow-[0_2px_10px_rgba(255,255,255,0.15)]"
+          />
+          <span>M ARCHIVE // LAB DE EXPERIMENTACIÓN GYM // BUENOS AIRES 2026</span>
+        </div>
+        <a
+          href="/"
+          className="text-zinc-400 hover:text-white transition-colors uppercase tracking-wider"
+        >
+          [ ← VOLVER A INDEX.HTML ]
+        </a>
       </footer>
     </div>
   )

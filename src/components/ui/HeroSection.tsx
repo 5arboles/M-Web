@@ -28,13 +28,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ activeFondoTitle }) =>
         style={{ opacity: textOpacity, y: textY, scale: textScale }}
         className="relative z-20 w-full h-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 flex flex-col justify-between py-10 sm:py-12 pointer-events-none"
       >
-        {/* Cabecera superior: Logo logo-M-b a ~100px */}
+        {/* Cabecera superior: Logo M.svg */}
         <div className="flex items-center justify-between pt-2">
           <div className="flex items-center gap-3 pointer-events-auto">
             <img
-              src="/images/logo-M-b.png"
+              src="/M.svg"
               alt="Logo M"
-              className="w-[100px] h-auto object-contain filter drop-shadow-[0_2px_12px_rgba(255,255,255,0.15)]"
+              className="w-[72px] sm:w-[88px] h-auto object-contain filter drop-shadow-[0_2px_12px_rgba(255,255,255,0.15)]"
             />
             <span className="hidden sm:inline-block font-mono text-[10px] tracking-widest text-zinc-400 border border-white/20 px-2 py-0.5 rounded">
               DROP 2026

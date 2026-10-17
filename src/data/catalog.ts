@@ -50,21 +50,21 @@ export interface BackgroundItem {
 export const BACKGROUND_ITEMS: BackgroundItem[] = [
   {
     id: 'fondo-01',
-    url: '/images/gym-lunes.jpg',
-    title: 'LUNES // NO ONE CARES',
-    subtitle: 'WORK HARDER IN SILENCE // 280 GSM',
+    url: '/images/fondo.jpg?v=2',
+    title: 'JUST TRYING MY LUCK',
+    subtitle: 'THIRTEEN SUPPLY CO // DICE & FIRE',
   },
   {
     id: 'fondo-02',
-    url: '/images/gym2.jpg',
-    title: 'KNURLED STEEL & CHALK',
-    subtitle: 'MOLETEADO DE ACERO // CALLO & MAGNESIO',
+    url: '/images/fondo2.jpg?v=2',
+    title: 'WE ARE PRESSED BUT NOT CRUSHED',
+    subtitle: 'FLAMING SKELETON // CHALK EDITION',
   },
   {
     id: 'fondo-03',
-    url: '/images/gym3.jpg',
-    title: 'BY ANY MEANS NECESSARY',
-    subtitle: 'IRONWILLED CONTACT SHEET // 5 PANELES',
+    url: '/images/fondo3.jpg?v=2',
+    title: 'ERNIE BALL ORIGINAL SLINKY',
+    subtitle: 'GUITAR STRINGS // EAGLE VINTAGE',
   },
 ]
 
@@ -88,7 +88,7 @@ export const PRINTS_DATA: PrintItem[] = [
     desc: 'Tipografía brutalista de hierro, coordenadas y ficha de carga.',
     aspect: 'Front Center // Oversized Chest',
     weight: '280 GSM',
-    image: '/images/gym-lunes.jpg',
+    image: '/images/1.jpg',
     svgGraphic: createSvgDataUri(`
       <g fill="#F5F5F5" font-family="'Clash Display', 'Arial Black', sans-serif">
         <text x="400" y="240" font-size="46" font-weight="900" text-anchor="middle" letter-spacing="4">HEAVY DISCIPLINE</text>
@@ -109,7 +109,7 @@ export const PRINTS_DATA: PrintItem[] = [
     desc: 'Estética de concierto clandestino, tipografía desgastada y grunge underground.',
     aspect: 'Front Center // Distorted Print',
     weight: '280 GSM',
-    image: '/images/gym1.jpg',
+    image: '/images/2.jpg',
     svgGraphic: createSvgDataUri(`
       <g fill="#F5F5F5" font-family="'Impact', 'Clash Display', sans-serif">
         <text x="400" y="220" font-size="70" font-weight="900" text-anchor="middle" letter-spacing="6">DISTORTION</text>
@@ -128,7 +128,7 @@ export const PRINTS_DATA: PrintItem[] = [
     desc: 'Fútbol callejero, estética de tribuna europea y heráldica noventera.',
     aspect: 'Front Center // Terrace Heritage',
     weight: '280 GSM',
-    image: '/images/gym2.jpg',
+    image: '/images/3.jpg',
     svgGraphic: createSvgDataUri(`
       <g fill="#F5F5F5" font-family="'Clash Display', 'Arial Black', sans-serif">
         <polygon points="400,160 550,220 530,480 400,560 270,480 250,220" fill="none" stroke="#F5F5F5" stroke-width="7" />
@@ -146,7 +146,7 @@ export const PRINTS_DATA: PrintItem[] = [
     desc: 'Monograma brutalista de la marca con coordenadas de producción textil.',
     aspect: 'Front Center // Minimal High Contrast',
     weight: '280 GSM',
-    image: '/images/gym3.jpg',
+    image: '/images/4.jpg',
     svgGraphic: createSvgDataUri(`
       <g fill="#F5F5F5" font-family="'Clash Display', 'Arial Black', sans-serif">
         <text x="400" y="350" font-size="160" font-weight="900" text-anchor="middle" letter-spacing="-5">M</text>
@@ -164,7 +164,7 @@ export const PRINTS_DATA: PrintItem[] = [
     desc: 'Esquema de carga pesada, barra de pesas y corte drop-shoulder para entrenamiento.',
     aspect: 'Back Dominant // Heavy Chest',
     weight: '280 GSM',
-    image: '/images/gym4.jpg',
+    image: '/images/5.jpg',
     svgGraphic: createSvgDataUri(`
       <g fill="#F5F5F5" font-family="'Clash Display', sans-serif">
         <text x="400" y="260" font-size="80" font-weight="900" text-anchor="middle">280 GSM</text>
@@ -182,7 +182,7 @@ export const PRINTS_DATA: PrintItem[] = [
     desc: 'Negro sobre negro, distorsión visual y tipografía desgastada de recital.',
     aspect: 'Front Center // Acid Black',
     weight: '280 GSM',
-    image: '/images/gym5.jpg',
+    image: '/images/6.jpg',
     svgGraphic: createSvgDataUri(`
       <g fill="#F5F5F5" font-family="'Impact', sans-serif">
         <text x="400" y="270" font-size="84" font-weight="900" text-anchor="middle" letter-spacing="8">STATIC NOISE</text>
@@ -199,7 +199,7 @@ export const PRINTS_DATA: PrintItem[] = [
     desc: 'Cultura casual de tablón, banderas de alambre y tipografía clásica de estadio.',
     aspect: 'Front Center // Street Casual',
     weight: '280 GSM',
-    image: '/images/gym-lunes.jpg',
+    image: '/images/7.jpg',
     svgGraphic: createSvgDataUri(`
       <g fill="#F5F5F5" font-family="'Clash Display', sans-serif">
         <text x="400" y="260" font-size="52" font-weight="900" text-anchor="middle" letter-spacing="6">TERRACE</text>
@@ -216,7 +216,7 @@ export const PRINTS_DATA: PrintItem[] = [
     desc: 'Gráfica técnica para powerlifters y culturismo clásico con tipografía brutal.',
     aspect: 'Front Box // Heavy Fit',
     weight: '280 GSM',
-    image: '/images/gym1.jpg',
+    image: '/images/1.jpg',
     svgGraphic: createSvgDataUri(`
       <g fill="#F5F5F5" font-family="'Clash Display', sans-serif">
         <rect x="180" y="200" width="440" height="380" fill="none" stroke="#F5F5F5" stroke-width="6" />
@@ -233,7 +233,7 @@ export const PRINTS_DATA: PrintItem[] = [
     desc: 'Estética gótica contemporánea, póster de fanzine y actitud callejera.',
     aspect: 'Front Center // Gothic Street',
     weight: '280 GSM',
-    image: '/images/gym2.jpg',
+    image: '/images/2.jpg',
     svgGraphic: createSvgDataUri(`
       <g fill="#F5F5F5" font-family="'Impact', sans-serif">
         <text x="400" y="250" font-size="90" font-weight="900" text-anchor="middle" letter-spacing="6">REBELLION</text>
@@ -249,7 +249,7 @@ export const PRINTS_DATA: PrintItem[] = [
     desc: 'Ficha técnica industrial de moldería textil, gramaje y algodón peinado premium.',
     aspect: 'Front Center // Minimal Specimen',
     weight: '280 GSM',
-    image: '/images/gym3.jpg',
+    image: '/images/3.jpg',
     svgGraphic: createSvgDataUri(`
       <g fill="#F5F5F5" font-family="'Clash Display', sans-serif">
         <text x="400" y="240" font-size="64" font-weight="900" text-anchor="middle">M // ATELIER</text>
