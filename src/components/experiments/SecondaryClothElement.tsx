@@ -146,7 +146,7 @@ export const SecondaryClothElement: React.FC = () => {
   const prevSlide = () => setSlideIndex((prev) => (prev - 1 + SLIDE_IMAGES.length) % SLIDE_IMAGES.length)
 
   return (
-    <div className="space-y-6 p-6 sm:p-10 bg-[#08080a] border border-white/20 rounded relative overflow-hidden">
+    <div className="space-y-6 p-6 sm:p-10 bg-black/20 backdrop-blur-2xl border border-white/10 rounded relative overflow-hidden">
       {/* Header explicativo del experimento */}
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-white/10 pb-6">
         <div>

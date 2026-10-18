@@ -189,16 +189,33 @@ export const GymExperimentPage: React.FC = () => {
             </div>
 
             {/* Titular gigante con animación palabra por palabra en loop cada 3s */}
-            <div className="space-y-1">
+            {/* Al revés que en index: todas las letras outline y una palabra resaltada en blanco (HIERRO) */}
+            <div className="space-y-0 -space-y-1.5 sm:-space-y-3">
               <WordRevealTitle
                 as="h1"
-                text="EL HIERRO NO NEGOCIA."
-                className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
+                text="EL HIERRO"
+                baseDelay={0}
+                stagger={0.09}
+                className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
+                wordClassName="text-transparent [-webkit-text-stroke:1px_#ffffff]"
+                highlightWords={['HIERRO']}
+                highlightClassName="text-white"
+              />
+              <WordRevealTitle
+                as="h1"
+                text="NO NEGOCIA."
+                baseDelay={0.18}
+                stagger={0.09}
+                className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
+                wordClassName="text-transparent [-webkit-text-stroke:1px_#ffffff]"
               />
               <WordRevealTitle
                 as="h1"
                 text="LA GRAVEDAD NO MIENTE."
-                className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
+                baseDelay={0.28}
+                stagger={0.09}
+                className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
+                wordClassName="text-transparent [-webkit-text-stroke:1px_#ffffff]"
               />
             </div>
 
@@ -294,12 +311,14 @@ export const GymExperimentPage: React.FC = () => {
             ))}
           </div>
         </section>
+      </main>
 
-        {/* ========================================================
-            SECCIÓN 07: FONDO 2 // WE ARE PRESSED BUT NOT CRUSHED
-            Con fondo negro al 20% difuso (frosted glass)
-           ======================================================== */}
-        <section className="bg-black/20 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 sm:p-14 shadow-2xl min-h-[60vh] flex flex-col justify-center">
+      {/* ========================================================
+          SECCIÓN 07: FONDO 2 // WE ARE PRESSED BUT NOT CRUSHED
+          Fondo difuso negro al 20% en todo el ancho (full bleed como Venta Mayorista)
+         ======================================================== */}
+      <section className="relative w-full py-28 px-6 sm:px-10 lg:px-12 bg-black/20 backdrop-blur-2xl border-t border-white/10 z-10">
+        <div className="max-w-7xl mx-auto flex flex-col justify-center min-h-[50vh]">
           <div className="max-w-2xl space-y-6">
             <div className="flex items-center gap-2 font-mono text-xs text-zinc-400">
               <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
@@ -317,21 +336,27 @@ export const GymExperimentPage: React.FC = () => {
               <WordRevealTitle
                 as="h2"
                 text="NOT CRUSHED."
-                className="font-display font-black text-4xl sm:text-6xl xl:text-7xl text-white uppercase leading-[0.85]"
+                className="font-display font-black text-4xl sm:text-6xl xl:text-7xl uppercase leading-[0.85]"
+                wordClassName="text-transparent [-webkit-text-stroke:1px_#ffffff]"
               />
             </div>
 
-            <p className="font-mono italic text-sm sm:text-base text-zinc-300 leading-relaxed bg-black/40 backdrop-blur-sm p-4 rounded">
-              El ácido láctico arde en los cuádriceps en la última repetición. La respiración se quiebra en la garganta. Hay una belleza salvaje en llevar el cuerpo al límite exacto antes del colapso, donde la mente deja de razonar y solo queda el instinto del levantador. La tela ondea con mayor frecuencia, reflejando el pulso cardíaco acelerado.
-            </p>
+            {/* Cuadro con fondo negro como estaba antes */}
+            <div className="p-6 bg-black/90 border border-white/10 rounded max-w-xl">
+              <p className="font-mono italic text-sm sm:text-base text-zinc-300 leading-relaxed">
+                El ácido láctico arde en los cuádriceps en la última repetición. La respiración se quiebra en la garganta. Hay una belleza salvaje en llevar el cuerpo al límite exacto antes del colapso, donde la mente deja de razonar y solo queda el instinto del levantador. La tela ondea con mayor frecuencia, reflejando el pulso cardíaco acelerado.
+              </p>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ========================================================
-            SECCIÓN 08: BLOQUE INFERIOR // MANIFIESTO
-            Con fondo negro al 20% difuso (frosted glass) y sin tabla
-           ======================================================== */}
-        <section id="manifesto" className="bg-black/20 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 sm:p-14 shadow-2xl space-y-10 scroll-mt-24">
+      {/* ========================================================
+          SECCIÓN 08: BLOQUE INFERIOR // MANIFIESTO
+          Fondo difuso negro al 20% en todo el ancho y cuadros en fondo negro
+         ======================================================== */}
+      <section id="manifesto" className="relative w-full py-28 px-6 sm:px-10 lg:px-12 bg-black/20 backdrop-blur-2xl border-t border-b border-white/10 z-10 scroll-mt-24">
+        <div className="max-w-7xl mx-auto space-y-12">
           <div className="border-b border-white/10 pb-4">
             <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest block">
               SECCIÓN 08 // ANÁLISIS EDITORIAL Y TEXTIL
@@ -346,8 +371,8 @@ export const GymExperimentPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-xs font-mono">
-            {/* Manifiesto 01 */}
-            <div className="space-y-3 p-5 bg-white/[0.02] border border-white/10 rounded">
+            {/* Manifiesto 01: cuadro en fondo negro como estaba antes */}
+            <div className="space-y-3 p-6 bg-black/90 border border-white/10 rounded">
               <div className="flex items-center justify-between text-zinc-500">
                 <span>[ PUNTO 01 ]</span>
                 <span className="text-white font-bold">INMUTABILIDAD</span>
@@ -360,8 +385,8 @@ export const GymExperimentPage: React.FC = () => {
               </p>
             </div>
 
-            {/* Manifiesto 02 */}
-            <div className="space-y-3 p-5 bg-white/[0.02] border border-white/10 rounded">
+            {/* Manifiesto 02: cuadro en fondo negro como estaba antes */}
+            <div className="space-y-3 p-6 bg-black/90 border border-white/10 rounded">
               <div className="flex items-center justify-between text-zinc-500">
                 <span>[ PUNTO 02 ]</span>
                 <span className="text-white font-bold">FISIOLOGÍA</span>
@@ -374,8 +399,8 @@ export const GymExperimentPage: React.FC = () => {
               </p>
             </div>
 
-            {/* Manifiesto 03 */}
-            <div className="space-y-3 p-5 bg-white/[0.02] border border-white/10 rounded">
+            {/* Manifiesto 03: cuadro en fondo negro como estaba antes */}
+            <div className="space-y-3 p-6 bg-black/90 border border-white/10 rounded">
               <div className="flex items-center justify-between text-zinc-500">
                 <span>[ PUNTO 03 ]</span>
                 <span className="text-white font-bold">TEXTIL 280G</span>
@@ -388,11 +413,11 @@ export const GymExperimentPage: React.FC = () => {
               </p>
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
-      {/* Footer del Index en color negro */}
-      <Footer />
+      {/* Footer del Index en color negro configurado para sección GYM */}
+      <Footer currentSection="gym" />
     </div>
   )
 }

@@ -3,7 +3,13 @@ import { ArrowUpRight } from 'lucide-react'
 import { createWhatsAppUrl } from '@/data/catalog'
 import { RollingText } from '@/components/ui/AnimatedText'
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  currentSection?: 'urban' | 'gym'
+}
+
+export const Footer: React.FC<FooterProps> = ({ currentSection = 'urban' }) => {
+  const isGym = currentSection === 'gym'
+
   return (
     <footer className="relative bg-black border-t border-white/10 pt-20 pb-12 px-6 md:px-10 z-20">
       <div className="max-w-7xl mx-auto space-y-16">
@@ -51,14 +57,39 @@ export const Footer: React.FC = () => {
 
         {/* Technical Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-xs font-mono text-zinc-400">
-          <div className="space-y-3">
+          <div className="space-y-6">
             <a
-              href="/gym.html"
+              href={isGym ? "/" : "/gym.html"}
               className="group inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white text-white hover:text-black border border-white/25 hover:border-white rounded font-display font-black text-xs uppercase tracking-wider transition-all"
             >
-              <RollingText text="Ver Línea GYM" />
+              <RollingText text={isGym ? "Ver Línea URBANO" : "Ver Línea GYM"} />
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
+
+            {/* Redes Sociales con rollover PRÓXIMAMENTE */}
+            <div className="space-y-2.5">
+              <span className="text-white font-bold block uppercase tracking-wider text-[11px]">
+                REDES SOCIALES
+              </span>
+              <ul className="space-y-2">
+                {[
+                  { name: 'Instagram', id: 'ig' },
+                  { name: 'Facebook', id: 'fb' },
+                  { name: 'Twitter', id: 'tw' },
+                ].map((social) => (
+                  <li key={social.id}>
+                    <div className="group relative inline-flex items-center gap-2 cursor-pointer select-none py-0.5">
+                      <span className="text-zinc-400 group-hover:text-zinc-500 transition-colors">
+                        {social.name}
+                      </span>
+                      <span className="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200 px-1.5 py-0.5 bg-white text-black font-bold text-[9px] uppercase tracking-wider rounded shadow-sm">
+                        PRÓXIMAMENTE
+                      </span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div className="space-y-2">

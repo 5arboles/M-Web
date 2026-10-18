@@ -6,6 +6,8 @@ interface WordRevealTitleProps {
   as?: 'h1' | 'h2' | 'h3' | 'div'
   className?: string
   wordClassName?: string
+  highlightWords?: string[]
+  highlightClassName?: string
   baseDelay?: number
   stagger?: number
 }
@@ -18,6 +20,8 @@ export const WordRevealTitle: React.FC<WordRevealTitleProps> = ({
   as: Tag = 'h2',
   className = '',
   wordClassName = '',
+  highlightWords = [],
+  highlightClassName = 'text-white',
   baseDelay = 0,
   stagger = 0.08,
 }) => {
@@ -25,26 +29,34 @@ export const WordRevealTitle: React.FC<WordRevealTitleProps> = ({
 
   return (
     <Tag className={className}>
-      {words.map((word, idx) => (
-        <span
-          key={`${word}-${idx}`}
-          className="inline-block overflow-hidden align-bottom mr-[0.24em] last:mr-0 py-[0.04em]"
-        >
-          <motion.span
-            animate={{ y: ['110%', '0%'] }}
-            transition={{
-              duration: 0.75,
-              delay: baseDelay + idx * stagger,
-              ease: [0.16, 1, 0.3, 1],
-              repeat: Infinity,
-              repeatDelay: 3,
-            }}
-            className={`inline-block will-change-transform ${wordClassName}`}
+      {words.map((word, idx) => {
+        const cleanWord = word.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]/g, '').toUpperCase()
+        const isHighlighted = highlightWords.some(
+          (hw) => hw.toUpperCase() === cleanWord
+        )
+        const finalWordClass = isHighlighted ? highlightClassName : wordClassName
+
+        return (
+          <span
+            key={`${word}-${idx}`}
+            className="inline-block overflow-hidden align-bottom mr-[0.24em] last:mr-0 py-[0.04em]"
           >
-            {word}
-          </motion.span>
-        </span>
-      ))}
+            <motion.span
+              animate={{ y: ['110%', '0%'] }}
+              transition={{
+                duration: 0.75,
+                delay: baseDelay + idx * stagger,
+                ease: [0.16, 1, 0.3, 1],
+                repeat: Infinity,
+                repeatDelay: 3,
+              }}
+              className={`inline-block will-change-transform ${finalWordClass}`}
+            >
+              {word}
+            </motion.span>
+          </span>
+        )
+      })}
     </Tag>
   )
 }
