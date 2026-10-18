@@ -146,22 +146,27 @@ export const GymExperimentPage: React.FC = () => {
       {/* 3. Barra Superior de Navegación del Laboratorio */}
       <header className="sticky top-0 z-40 w-full bg-black/80 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
         <div className="flex items-center gap-3">
-          <img
-            src="/M.svg"
-            alt="Logo M"
-            className="w-8 h-8 object-contain filter drop-shadow-[0_2px_10px_rgba(255,255,255,0.2)]"
-          />
-          <a
-            href="/"
-            className="group flex items-center gap-2 px-3 py-1 bg-white/10 hover:bg-white text-zinc-300 hover:text-black transition-colors rounded uppercase tracking-wider text-[11px]"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
-            <span>WEB PRINCIPAL</span>
+          <a href="/" className="shrink-0">
+            <img
+              src="/M.svg"
+              alt="Logo M"
+              className="w-9 h-9 object-contain filter drop-shadow-[0_2px_10px_rgba(255,255,255,0.2)]"
+            />
           </a>
-          <span className="text-zinc-600">//</span>
-          <span className="text-zinc-300 font-bold uppercase tracking-wider hidden sm:inline">
-            LAB EXPERIMENTAL M
-          </span>
+          <div className="flex items-center gap-2">
+            <a
+              href="/"
+              className="px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-black/60 text-zinc-300 hover:bg-white hover:text-black border border-white/25 hover:border-white transition-all"
+            >
+              URBAN
+            </a>
+            <a
+              href="/gym.html"
+              className="px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-white text-black border border-white shadow-[0_0_15px_rgba(255,255,255,0.25)] transition-all"
+            >
+              GYM
+            </a>
+          </div>
         </div>
 
         {/* Quick section links */}
@@ -202,19 +207,29 @@ export const GymExperimentPage: React.FC = () => {
             SECCIÓN 01: HERO POÉTICO // BITÁCORA DE HIERRO
            ======================================================== */}
         <section className="min-h-[85vh] flex flex-col justify-between py-8">
-          {/* Header de la sección con Logo M.svg */}
+          {/* Header de la sección con Logo M.svg y botones URBAN / GYM */}
           <div className="flex items-center justify-between gap-4 font-mono text-xs text-zinc-500">
             <div className="flex items-center gap-3">
-              <img
-                src="/M.svg"
-                alt="Logo M"
-                className="w-[68px] sm:w-[82px] h-auto object-contain filter drop-shadow-[0_2px_12px_rgba(255,255,255,0.18)]"
-              />
+              <a href="/" className="shrink-0">
+                <img
+                  src="/M.svg"
+                  alt="Logo M"
+                  className="w-[68px] sm:w-[82px] h-auto object-contain filter drop-shadow-[0_2px_12px_rgba(255,255,255,0.18)]"
+                />
+              </a>
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-white" />
-                <span className="uppercase tracking-widest text-zinc-400">
-                  SECCIÓN 01 // BITÁCORA DE HIERRO: SUDOR &amp; TENSIÓN
-                </span>
+                <a
+                  href="/"
+                  className="px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-black/60 text-zinc-300 hover:bg-white hover:text-black border border-white/25 hover:border-white transition-all"
+                >
+                  URBAN
+                </a>
+                <a
+                  href="/gym.html"
+                  className="px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-white text-black border border-white shadow-[0_0_15px_rgba(255,255,255,0.25)] transition-all"
+                >
+                  GYM
+                </a>
               </div>
             </div>
             <span className="hidden md:inline text-[10px] text-zinc-500 uppercase tracking-widest">
@@ -230,17 +245,52 @@ export const GymExperimentPage: React.FC = () => {
               <span>BITÁCORA DE HIERRO // VOLUMEN 01</span>
             </div>
 
-            {/* Titular gigante en Clash Display */}
+            {/* Titular gigante en Clash Display con animación de entrada en loop cada 3s */}
             <div className="space-y-0 -space-y-2 sm:-space-y-3.5">
-              <h1 className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]">
-                EL HIERRO
-              </h1>
-              <h1 className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase text-transparent [-webkit-text-stroke:1px_#ffffff] drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]">
-                NO NEGOCIA.
-              </h1>
-              <h1 className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]">
-                LA GRAVEDAD NO MIENTE.
-              </h1>
+              <div className="overflow-hidden">
+                <motion.h1
+                  animate={{ y: ['100%', '0%'] }}
+                  transition={{
+                    duration: 0.8,
+                    ease: [0.16, 1, 0.3, 1],
+                    repeat: Infinity,
+                    repeatDelay: 3,
+                  }}
+                  className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
+                >
+                  EL HIERRO
+                </motion.h1>
+              </div>
+              <div className="overflow-hidden">
+                <motion.h1
+                  animate={{ y: ['100%', '0%'] }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.08,
+                    ease: [0.16, 1, 0.3, 1],
+                    repeat: Infinity,
+                    repeatDelay: 3,
+                  }}
+                  className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase text-transparent [-webkit-text-stroke:1px_#ffffff] drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
+                >
+                  NO NEGOCIA.
+                </motion.h1>
+              </div>
+              <div className="overflow-hidden">
+                <motion.h1
+                  animate={{ y: ['100%', '0%'] }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.16,
+                    ease: [0.16, 1, 0.3, 1],
+                    repeat: Infinity,
+                    repeatDelay: 3,
+                  }}
+                  className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
+                >
+                  LA GRAVEDAD NO MIENTE.
+                </motion.h1>
+              </div>
             </div>
 
             {/* Texto poético sobre el gimnasio, el sudor y la disciplina */}
@@ -314,9 +364,20 @@ export const GymExperimentPage: React.FC = () => {
                   SECCIÓN 06 // MICRO-FÍSICA: TARJETAS CON PARALAJE INVERSO AL PASAR EL CURSOR
                 </span>
               </div>
-              <h2 className="font-display font-black text-4xl sm:text-6xl text-white uppercase tracking-tight">
-                GALERÍA DE DISCIPLINA 01
-              </h2>
+              <div className="overflow-hidden">
+                <motion.h2
+                  animate={{ y: ['100%', '0%'] }}
+                  transition={{
+                    duration: 0.8,
+                    ease: [0.16, 1, 0.3, 1],
+                    repeat: Infinity,
+                    repeatDelay: 3,
+                  }}
+                  className="font-display font-black text-4xl sm:text-6xl text-white uppercase tracking-tight"
+                >
+                  GALERÍA DE DISCIPLINA 01
+                </motion.h2>
+              </div>
               <p className="font-mono italic text-sm text-zinc-400 max-w-xl">
                 Cada tarjeta reacciona al cursor con inclinación magnética 3D y desplazamiento de profundidad. Animaciones de entrada y salida fluidas según el viewport.
               </p>
@@ -352,12 +413,35 @@ export const GymExperimentPage: React.FC = () => {
             </div>
 
             <div className="space-y-0 -space-y-2 sm:-space-y-3">
-              <h2 className="font-display font-black text-4xl sm:text-6xl xl:text-7xl text-white uppercase leading-[0.85]">
-                WE ARE PRESSED.
-              </h2>
-              <h2 className="font-display font-black text-4xl sm:text-6xl xl:text-7xl text-white uppercase text-transparent [-webkit-text-stroke:1px_#ffffff] leading-[0.85]">
-                NOT CRUSHED.
-              </h2>
+              <div className="overflow-hidden">
+                <motion.h2
+                  animate={{ y: ['100%', '0%'] }}
+                  transition={{
+                    duration: 0.8,
+                    ease: [0.16, 1, 0.3, 1],
+                    repeat: Infinity,
+                    repeatDelay: 3,
+                  }}
+                  className="font-display font-black text-4xl sm:text-6xl xl:text-7xl text-white uppercase leading-[0.85]"
+                >
+                  WE ARE PRESSED.
+                </motion.h2>
+              </div>
+              <div className="overflow-hidden">
+                <motion.h2
+                  animate={{ y: ['100%', '0%'] }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.08,
+                    ease: [0.16, 1, 0.3, 1],
+                    repeat: Infinity,
+                    repeatDelay: 3,
+                  }}
+                  className="font-display font-black text-4xl sm:text-6xl xl:text-7xl text-white uppercase text-transparent [-webkit-text-stroke:1px_#ffffff] leading-[0.85]"
+                >
+                  NOT CRUSHED.
+                </motion.h2>
+              </div>
             </div>
 
             <p className="font-mono italic text-sm sm:text-base text-zinc-300 leading-relaxed border-l-2 border-white/50 pl-4 bg-black/50 backdrop-blur-sm py-2">
@@ -374,9 +458,20 @@ export const GymExperimentPage: React.FC = () => {
             <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest block">
               SECCIÓN 08 // ANÁLISIS EDITORIAL Y TEXTIL
             </span>
-            <h2 className="font-display font-black text-3xl sm:text-5xl text-white uppercase tracking-tight mt-1">
-              MANIFIESTO DEL HIERRO
-            </h2>
+            <div className="overflow-hidden mt-1">
+              <motion.h2
+                animate={{ y: ['100%', '0%'] }}
+                transition={{
+                  duration: 0.8,
+                  ease: [0.16, 1, 0.3, 1],
+                  repeat: Infinity,
+                  repeatDelay: 3,
+                }}
+                className="font-display font-black text-3xl sm:text-5xl text-white uppercase tracking-tight"
+              >
+                MANIFIESTO DEL HIERRO
+              </motion.h2>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-xs font-mono">

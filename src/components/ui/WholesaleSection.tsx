@@ -18,10 +18,13 @@ export const WholesaleSection: React.FC = () => {
 
           <div className="overflow-hidden">
             <motion.h2
-              initial={{ y: '100%' }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              animate={{ y: ['100%', '0%'] }}
+              transition={{
+                duration: 0.8,
+                ease: [0.16, 1, 0.3, 1],
+                repeat: Infinity,
+                repeatDelay: 3,
+              }}
               className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight uppercase leading-[0.95]"
             >
               SCALE YOUR BRAND.

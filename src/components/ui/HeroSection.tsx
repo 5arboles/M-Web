@@ -28,24 +28,30 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ activeFondoTitle }) =>
         style={{ opacity: textOpacity, y: textY, scale: textScale }}
         className="relative z-20 w-full h-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 flex flex-col justify-between py-10 sm:py-12 pointer-events-none"
       >
-        {/* Cabecera superior: Logo M.svg */}
+        {/* Cabecera superior: Logo M.svg + Botones URBAN y GYM */}
         <div className="flex items-center justify-between pt-2">
           <div className="flex items-center gap-3 pointer-events-auto">
-            <img
-              src="/M.svg"
-              alt="Logo M"
-              className="w-[72px] sm:w-[88px] h-auto object-contain filter drop-shadow-[0_2px_12px_rgba(255,255,255,0.15)]"
-            />
-            <span className="hidden sm:inline-block font-mono text-[10px] tracking-widest text-zinc-400 border border-white/20 px-2 py-0.5 rounded">
-              DROP 2026
-            </span>
-            <a
-              href="/gym.html"
-              className="hidden sm:inline-flex items-center gap-1 font-mono text-[10px] tracking-widest text-zinc-400 hover:text-white border border-white/20 hover:border-white px-2 py-0.5 rounded transition-colors"
-              title="Abrir Laboratorio de Experimentación 3D"
-            >
-              <span>LAB: GYM.HTML →</span>
+            <a href="/" className="shrink-0">
+              <img
+                src="/M.svg"
+                alt="Logo M"
+                className="w-[72px] sm:w-[88px] h-auto object-contain filter drop-shadow-[0_2px_12px_rgba(255,255,255,0.15)]"
+              />
             </a>
+            <div className="flex items-center gap-2">
+              <a
+                href="/"
+                className="px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-white text-black border border-white shadow-[0_0_15px_rgba(255,255,255,0.25)] transition-all"
+              >
+                URBAN
+              </a>
+              <a
+                href="/gym.html"
+                className="px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-black/60 text-zinc-300 hover:bg-white hover:text-black border border-white/25 hover:border-white transition-all"
+              >
+                GYM
+              </a>
+            </div>
           </div>
 
           <div className="flex items-center gap-2">
@@ -65,13 +71,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ activeFondoTitle }) =>
             </span>
           </div>
 
-          {/* Titular gigante en Clash Display: líneas bien juntas y bloque compacto */}
+          {/* Titular gigante en Clash Display con animación de entrada en loop cada 3 segundos */}
           <div className="space-y-0 -space-y-1.5 sm:-space-y-3">
             <div className="overflow-hidden">
               <motion.h1
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                animate={{ y: ['100%', '0%'] }}
+                transition={{
+                  duration: 0.8,
+                  ease: [0.16, 1, 0.3, 1],
+                  repeat: Infinity,
+                  repeatDelay: 3,
+                }}
                 className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] sm:leading-[0.84] text-white uppercase drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
               >
                 WEAR THE
@@ -79,9 +89,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ activeFondoTitle }) =>
             </div>
             <div className="overflow-hidden">
               <motion.h1
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.85, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+                animate={{ y: ['100%', '0%'] }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                  repeat: Infinity,
+                  repeatDelay: 3,
+                }}
                 className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] sm:leading-[0.84] text-white uppercase text-transparent [-webkit-text-stroke:1px_#ffffff] drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
               >
                 ATTITUDE.
@@ -89,9 +104,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ activeFondoTitle }) =>
             </div>
             <div className="overflow-hidden">
               <motion.h1
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.9, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+                animate={{ y: ['100%', '0%'] }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.16,
+                  ease: [0.16, 1, 0.3, 1],
+                  repeat: Infinity,
+                  repeatDelay: 3,
+                }}
                 className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] sm:leading-[0.84] text-white uppercase drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
               >
                 NOT JUST FABRIC.

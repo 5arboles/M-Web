@@ -13,11 +13,22 @@ export const InvertedTypographyShowcase: React.FC = () => {
           <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest block">
             EXPERIMENTO 02 // JERARQUÍA TIPOGRÁFICA INVERTIDA
           </span>
-          <h2 className="font-display font-black text-2xl sm:text-4xl text-white uppercase tracking-tight mt-1">
-            {isInverted
-              ? 'DM MONO GIGANTE + CLASH DISPLAY COMPACTA'
-              : 'CLASH DISPLAY GIGANTE + DM MONO COMPACTA'}
-          </h2>
+          <div className="overflow-hidden mt-1">
+            <motion.h2
+              animate={{ y: ['100%', '0%'] }}
+              transition={{
+                duration: 0.8,
+                ease: [0.16, 1, 0.3, 1],
+                repeat: Infinity,
+                repeatDelay: 3,
+              }}
+              className="font-display font-black text-2xl sm:text-4xl text-white uppercase tracking-tight"
+            >
+              {isInverted
+                ? 'DM MONO GIGANTE + CLASH DISPLAY COMPACTA'
+                : 'CLASH DISPLAY GIGANTE + DM MONO COMPACTA'}
+            </motion.h2>
+          </div>
         </div>
 
         {/* Botón de alternancia instantánea */}

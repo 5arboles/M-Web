@@ -59,9 +59,20 @@ export const CursorInteractiveTypography: React.FC = () => {
           <Type className="w-3.5 h-3.5 text-white" />
           <span>EXPERIMENTO 01 // FÍSICA & EFECTOS EN TIPOGRAFÍA</span>
         </div>
-        <h2 className="font-display font-black text-3xl sm:text-5xl text-white uppercase tracking-tight mt-1">
-          LABORATORIO DE TEXTOS &amp; CURSOR
-        </h2>
+        <div className="overflow-hidden mt-1">
+          <motion.h2
+            animate={{ y: ['100%', '0%'] }}
+            transition={{
+              duration: 0.8,
+              ease: [0.16, 1, 0.3, 1],
+              repeat: Infinity,
+              repeatDelay: 3,
+            }}
+            className="font-display font-black text-3xl sm:text-5xl text-white uppercase tracking-tight"
+          >
+            LABORATORIO DE TEXTOS &amp; CURSOR
+          </motion.h2>
+        </div>
         <p className="font-mono italic text-xs sm:text-sm text-zinc-400 mt-2 max-w-2xl">
           Probando diferentes respuestas cinéticas al cursor, transiciones de entrada/salida y modos de interacción directa sobre las palabras.
         </p>

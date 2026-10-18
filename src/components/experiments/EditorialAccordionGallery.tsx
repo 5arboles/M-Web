@@ -125,9 +125,20 @@ export const EditorialAccordionGallery: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
             <span>GALERÍA DE IMÁGENES ALTERNATIVA // FORMATO 02</span>
           </div>
-          <h2 className="font-display font-black text-3xl sm:text-5xl text-white uppercase tracking-tight mt-1">
-            EDITORIAL ACCORDION & CONTACT SHEET
-          </h2>
+          <div className="overflow-hidden mt-1">
+            <motion.h2
+              animate={{ y: ['100%', '0%'] }}
+              transition={{
+                duration: 0.8,
+                ease: [0.16, 1, 0.3, 1],
+                repeat: Infinity,
+                repeatDelay: 3,
+              }}
+              className="font-display font-black text-3xl sm:text-5xl text-white uppercase tracking-tight"
+            >
+              EDITORIAL ACCORDION &amp; CONTACT SHEET
+            </motion.h2>
+          </div>
           <p className="text-zinc-400 font-mono text-xs max-w-xl mt-2 italic">
             Inspeccioná las 6 imágenes recién subidas: paneo horizontal interactivo con expansión suave en hover/clic,
             metadatos fotográficos, notas poéticas y modo hoja de contacto.
