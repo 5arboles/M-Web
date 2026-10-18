@@ -2,12 +2,13 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Check, Sparkles } from 'lucide-react'
 import { WHOLESALE_TIERS, createWhatsAppUrl } from '@/data/catalog'
+import { WordRevealTitle, RollingText } from '@/components/ui/AnimatedText'
 
 export const WholesaleSection: React.FC = () => {
   return (
-    <section id="wholesale" className="relative py-28 px-6 md:px-10 bg-[#050505]/95 backdrop-blur-2xl border-t border-white/15 z-20">
+    <section id="wholesale" className="relative py-28 px-6 md:px-10 bg-black/20 backdrop-blur-2xl border-t border-white/15 z-20">
       <div className="max-w-7xl mx-auto space-y-16">
-        {/* Header con el mismo reveal cinético del Hero */}
+        {/* Header con reveal cinético palabra por palabra */}
         <div className="max-w-3xl space-y-4">
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-white rounded-full" />
@@ -16,20 +17,11 @@ export const WholesaleSection: React.FC = () => {
             </span>
           </div>
 
-          <div className="overflow-hidden">
-            <motion.h2
-              animate={{ y: ['100%', '0%'] }}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-                repeat: Infinity,
-                repeatDelay: 3,
-              }}
-              className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight uppercase leading-[0.95]"
-            >
-              SCALE YOUR BRAND.
-            </motion.h2>
-          </div>
+          <WordRevealTitle
+            text="SCALE YOUR BRAND."
+            as="h2"
+            className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight uppercase leading-[0.95]"
+          />
 
           <p className="font-mono italic text-zinc-400 text-sm sm:text-base leading-relaxed">
             Abastecemos gimnasios, locales de ropa, eventos y marcas emergentes con las mejores bases de algodón pesado (280 GSM) del mercado.
@@ -47,8 +39,8 @@ export const WholesaleSection: React.FC = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={`p-8 border flex flex-col justify-between transition-all duration-300 ${
                 tier.recommended
-                  ? 'border-white bg-zinc-950 shadow-[0_0_30px_rgba(255,255,255,0.08)] relative'
-                  : 'border-white/10 bg-[#080808] hover:border-white/40'
+                  ? 'border-white bg-zinc-950/90 shadow-[0_0_30px_rgba(255,255,255,0.08)] relative'
+                  : 'border-white/10 bg-[#080808]/80 hover:border-white/40'
               }`}
             >
               {tier.recommended && (
@@ -99,13 +91,13 @@ export const WholesaleSection: React.FC = () => {
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-full py-4 text-xs font-display font-black tracking-wider uppercase transition-colors flex items-center justify-center gap-2 ${
+                  className={`group w-full py-4 text-xs font-display font-black tracking-wider uppercase transition-colors flex items-center justify-center gap-2 ${
                     tier.recommended
                       ? 'bg-white text-black hover:bg-zinc-200'
                       : 'border border-white/30 text-white hover:bg-white hover:text-black'
                   }`}
                 >
-                  <span>SOLICITAR COTIZACIÓN ↗</span>
+                  <RollingText text="SOLICITAR COTIZACIÓN" />
                   <ArrowUpRight className="w-4 h-4" />
                 </a>
               </div>
@@ -114,7 +106,7 @@ export const WholesaleSection: React.FC = () => {
         </div>
 
         {/* Wholesale FAQ Box */}
-        <div className="p-8 bg-zinc-950 border border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="p-8 bg-zinc-950/90 border border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-1">
             <h4 className="font-display font-bold text-lg text-white uppercase">
               ¿NECESITÁS UNA CÁPSULA ESPECIAL O MÁS DE 200 PRENDAS?
@@ -128,9 +120,9 @@ export const WholesaleSection: React.FC = () => {
             href={createWhatsAppUrl('Hola! Necesito cotizar una producción especial mayorista de más de 200 prendas.')}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 border border-white text-white font-mono text-xs tracking-wider uppercase hover:bg-white hover:text-black transition-colors whitespace-nowrap text-center"
+            className="group px-6 py-3 border border-white text-white font-mono text-xs tracking-wider uppercase hover:bg-white hover:text-black transition-colors whitespace-nowrap text-center"
           >
-            HABLAR CON ASESOR
+            <RollingText text="HABLAR CON ASESOR" />
           </a>
         </div>
       </div>

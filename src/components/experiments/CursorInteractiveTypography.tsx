@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MousePointer, Eye, Zap, Type } from 'lucide-react'
+import { WordRevealTitle, RollingText } from '@/components/ui/AnimatedText'
 
 export const CursorInteractiveTypography: React.FC = () => {
   // Estado para el spotlight flashlight
@@ -59,19 +60,12 @@ export const CursorInteractiveTypography: React.FC = () => {
           <Type className="w-3.5 h-3.5 text-white" />
           <span>EXPERIMENTO 01 // FÍSICA & EFECTOS EN TIPOGRAFÍA</span>
         </div>
-        <div className="overflow-hidden mt-1">
-          <motion.h2
-            animate={{ y: ['100%', '0%'] }}
-            transition={{
-              duration: 0.8,
-              ease: [0.16, 1, 0.3, 1],
-              repeat: Infinity,
-              repeatDelay: 3,
-            }}
+        <div className="mt-1">
+          <WordRevealTitle
+            as="h2"
+            text="LABORATORIO DE TEXTOS &amp; CURSOR"
             className="font-display font-black text-3xl sm:text-5xl text-white uppercase tracking-tight"
-          >
-            LABORATORIO DE TEXTOS &amp; CURSOR
-          </motion.h2>
+          />
         </div>
         <p className="font-mono italic text-xs sm:text-sm text-zinc-400 mt-2 max-w-2xl">
           Probando diferentes respuestas cinéticas al cursor, transiciones de entrada/salida y modos de interacción directa sobre las palabras.
@@ -219,9 +213,9 @@ export const CursorInteractiveTypography: React.FC = () => {
             </span>
             <button
               onClick={() => setTextToggle((prev) => (prev + 1) % textVariations.length)}
-              className="px-2.5 py-1 bg-white text-black font-bold text-[10px] rounded uppercase hover:bg-zinc-200 transition-colors"
+              className="group px-2.5 py-1 bg-white text-black font-bold text-[10px] rounded uppercase hover:bg-zinc-200 transition-colors"
             >
-              PROBAR SIGUIENTE ↓
+              <RollingText text="PROBAR SIGUIENTE ↓" />
             </button>
           </div>
 

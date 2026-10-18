@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, ArrowDown, Sparkles, Layers, Activity, Flame, Shield } from 'lucide-react'
+import { ArrowDown, Sparkles, Activity, Flame, Shield } from 'lucide-react'
 import { GymClothCanvas, ClothParams } from '@/components/experiments/GymClothCanvas'
 import { CursorInteractiveCard, GymCardItem } from '@/components/experiments/CursorInteractiveCard'
 import { SecondaryClothElement } from '@/components/experiments/SecondaryClothElement'
 import { CursorInteractiveTypography } from '@/components/experiments/CursorInteractiveTypography'
-import { InvertedTypographyShowcase } from '@/components/experiments/InvertedTypographyShowcase'
 import { EditorialAccordionGallery } from '@/components/experiments/EditorialAccordionGallery'
+import { Footer } from '@/components/ui/Footer'
+import { WordRevealTitle, RollingText } from '@/components/ui/AnimatedText'
 
 // Estilo fijado: SUDOR & TENSIÓN
 const SUDOR_TENSION_PARAMS: ClothParams = {
@@ -143,65 +144,7 @@ export const GymExperimentPage: React.FC = () => {
       <div className="fixed inset-0 pointer-events-none z-[1] bg-gradient-to-r from-black/85 via-black/40 to-transparent" />
       <div className="fixed inset-0 pointer-events-none z-[1] bg-gradient-to-b from-black/80 via-transparent to-black/90" />
 
-      {/* 3. Barra Superior de Navegación del Laboratorio */}
-      <header className="sticky top-0 z-40 w-full bg-black/80 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
-        <div className="flex items-center gap-3">
-          <a href="/" className="shrink-0">
-            <img
-              src="/M.svg"
-              alt="Logo M"
-              className="w-9 h-9 object-contain filter drop-shadow-[0_2px_10px_rgba(255,255,255,0.2)]"
-            />
-          </a>
-          <div className="flex items-center gap-2">
-            <a
-              href="/"
-              className="px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-black/60 text-zinc-300 hover:bg-white hover:text-black border border-white/25 hover:border-white transition-all"
-            >
-              URBAN
-            </a>
-            <a
-              href="/gym.html"
-              className="px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-white text-black border border-white shadow-[0_0_15px_rgba(255,255,255,0.25)] transition-all"
-            >
-              GYM
-            </a>
-          </div>
-        </div>
-
-        {/* Quick section links */}
-        <nav className="hidden lg:flex items-center gap-3 text-[11px] text-zinc-400">
-          <a href="#secondary-cloth" className="hover:text-white transition-colors">
-            [ 1. TELA 3D SLIDER & RAM ]
-          </a>
-          <a href="#typo-effects" className="hover:text-white transition-colors">
-            [ 2. EFECTOS TIPOGRÁFICOS ]
-          </a>
-          <a href="#inverted-typo" className="hover:text-white transition-colors">
-            [ 3. INVERTIR DM MONO ]
-          </a>
-          <a href="#accordion-gallery" className="hover:text-white transition-colors">
-            [ 4. ACCORDION FOTOS ]
-          </a>
-          <a href="#cards-gallery" className="hover:text-white transition-colors">
-            [ 5. TILT CARDS ]
-          </a>
-        </nav>
-
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/15 rounded text-[10px] text-zinc-300">
-            <Activity className="w-3 h-3 text-white animate-pulse" />
-            <span>SUDOR &amp; TENSIÓN</span>
-          </div>
-
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span className="text-[10px] text-zinc-400 uppercase tracking-widest">[ 60 FPS ]</span>
-          </div>
-        </div>
-      </header>
-
-      {/* 4. Contenido Modular Scrolleable */}
+      {/* 3. Contenido Modular Scrolleable */}
       <main className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-12 space-y-36">
         {/* ========================================================
             SECCIÓN 01: HERO POÉTICO // BITÁCORA DE HIERRO
@@ -220,15 +163,15 @@ export const GymExperimentPage: React.FC = () => {
               <div className="flex items-center gap-2">
                 <a
                   href="/"
-                  className="px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-black/60 text-zinc-300 hover:bg-white hover:text-black border border-white/25 hover:border-white transition-all"
+                  className="group px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-black/60 text-zinc-300 hover:bg-white hover:text-black border border-white/25 hover:border-white transition-all"
                 >
-                  URBAN
+                  <RollingText text="URBAN" />
                 </a>
                 <a
                   href="/gym.html"
-                  className="px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-white text-black border border-white shadow-[0_0_15px_rgba(255,255,255,0.25)] transition-all"
+                  className="group px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-white text-black border border-white shadow-[0_0_15px_rgba(255,255,255,0.25)] transition-all"
                 >
-                  GYM
+                  <RollingText text="GYM" />
                 </a>
               </div>
             </div>
@@ -245,56 +188,22 @@ export const GymExperimentPage: React.FC = () => {
               <span>BITÁCORA DE HIERRO // VOLUMEN 01</span>
             </div>
 
-            {/* Titular gigante en Clash Display con animación de entrada en loop cada 3s */}
-            <div className="space-y-0 -space-y-2 sm:-space-y-3.5">
-              <div className="overflow-hidden">
-                <motion.h1
-                  animate={{ y: ['100%', '0%'] }}
-                  transition={{
-                    duration: 0.8,
-                    ease: [0.16, 1, 0.3, 1],
-                    repeat: Infinity,
-                    repeatDelay: 3,
-                  }}
-                  className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
-                >
-                  EL HIERRO
-                </motion.h1>
-              </div>
-              <div className="overflow-hidden">
-                <motion.h1
-                  animate={{ y: ['100%', '0%'] }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 0.08,
-                    ease: [0.16, 1, 0.3, 1],
-                    repeat: Infinity,
-                    repeatDelay: 3,
-                  }}
-                  className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase text-transparent [-webkit-text-stroke:1px_#ffffff] drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
-                >
-                  NO NEGOCIA.
-                </motion.h1>
-              </div>
-              <div className="overflow-hidden">
-                <motion.h1
-                  animate={{ y: ['100%', '0%'] }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 0.16,
-                    ease: [0.16, 1, 0.3, 1],
-                    repeat: Infinity,
-                    repeatDelay: 3,
-                  }}
-                  className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
-                >
-                  LA GRAVEDAD NO MIENTE.
-                </motion.h1>
-              </div>
+            {/* Titular gigante con animación palabra por palabra en loop cada 3s */}
+            <div className="space-y-1">
+              <WordRevealTitle
+                as="h1"
+                text="EL HIERRO NO NEGOCIA."
+                className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
+              />
+              <WordRevealTitle
+                as="h1"
+                text="LA GRAVEDAD NO MIENTE."
+                className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] text-white uppercase drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]"
+              />
             </div>
 
-            {/* Texto poético sobre el gimnasio, el sudor y la disciplina */}
-            <p className="font-mono italic text-sm sm:text-base text-zinc-300 leading-relaxed border-l-2 border-white/50 pl-4 max-w-xl bg-black/40 backdrop-blur-sm py-1.5">
+            {/* Texto poético sobre el gimnasio, el sudor y la disciplina sin comillas y sin línea izquierda */}
+            <p className="font-mono italic text-sm sm:text-base text-zinc-300 leading-relaxed max-w-xl bg-black/40 backdrop-blur-sm py-1.5">
               El dolor voluntario no busca aplausos ni cámaras. A las cinco de la mañana, cuando el metal quema las palmas frías y el sudor gotea sobre el cemento, solo queda la verdad pura del esfuerzo. La barra cargada a doscientos kilos no conoce de excusas. El tejido 280 GSM actúa como una armadura: sostiene el sudor, resiste el tirón y viste el volumen del músculo exhausto.
             </p>
 
@@ -319,7 +228,7 @@ export const GymExperimentPage: React.FC = () => {
           <div className="flex items-center gap-2 font-mono text-xs text-zinc-500 pt-8 border-t border-white/10">
             <ArrowDown className="w-4 h-4 text-white animate-bounce" />
             <span className="uppercase tracking-wider">
-              SCROLL HACIA ABAJO PARA EXPLORAR LOS NUEVOS EXPERIMENTOS ↓
+              SCROLL HACIA ABAJO PARA EXPLORAR ↓
             </span>
           </div>
         </section>
@@ -339,14 +248,7 @@ export const GymExperimentPage: React.FC = () => {
         </section>
 
         {/* ========================================================
-            SECCIÓN 04: INVERSIÓN TIPOGRÁFICA (DM MONO GIGANTE VS CLASH)
-           ======================================================== */}
-        <section id="inverted-typo" className="scroll-mt-24">
-          <InvertedTypographyShowcase />
-        </section>
-
-        {/* ========================================================
-            SECCIÓN 05: GALERÍA ALTERNATIVA // STRIP ACCORDION & CONTACT GRID
+            SECCIÓN 04: GALERÍA ALTERNATIVA // STRIP ACCORDION & CONTACT GRID
            ======================================================== */}
         <section id="accordion-gallery" className="scroll-mt-24">
           <EditorialAccordionGallery />
@@ -364,19 +266,12 @@ export const GymExperimentPage: React.FC = () => {
                   SECCIÓN 06 // MICRO-FÍSICA: TARJETAS CON PARALAJE INVERSO AL PASAR EL CURSOR
                 </span>
               </div>
-              <div className="overflow-hidden">
-                <motion.h2
-                  animate={{ y: ['100%', '0%'] }}
-                  transition={{
-                    duration: 0.8,
-                    ease: [0.16, 1, 0.3, 1],
-                    repeat: Infinity,
-                    repeatDelay: 3,
-                  }}
+              <div className="mt-1">
+                <WordRevealTitle
+                  as="h2"
+                  text="GALERÍA DE DISCIPLINA 01"
                   className="font-display font-black text-4xl sm:text-6xl text-white uppercase tracking-tight"
-                >
-                  GALERÍA DE DISCIPLINA 01
-                </motion.h2>
+                />
               </div>
               <p className="font-mono italic text-sm text-zinc-400 max-w-xl">
                 Cada tarjeta reacciona al cursor con inclinación magnética 3D y desplazamiento de profundidad. Animaciones de entrada y salida fluidas según el viewport.
@@ -402,8 +297,9 @@ export const GymExperimentPage: React.FC = () => {
 
         {/* ========================================================
             SECCIÓN 07: FONDO 2 // WE ARE PRESSED BUT NOT CRUSHED
+            Con fondo negro al 20% difuso (frosted glass)
            ======================================================== */}
-        <section className="min-h-[70vh] flex flex-col justify-center border-t border-b border-white/10 py-16">
+        <section className="bg-black/20 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 sm:p-14 shadow-2xl min-h-[60vh] flex flex-col justify-center">
           <div className="max-w-2xl space-y-6">
             <div className="flex items-center gap-2 font-mono text-xs text-zinc-400">
               <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
@@ -412,65 +308,40 @@ export const GymExperimentPage: React.FC = () => {
               </span>
             </div>
 
-            <div className="space-y-0 -space-y-2 sm:-space-y-3">
-              <div className="overflow-hidden">
-                <motion.h2
-                  animate={{ y: ['100%', '0%'] }}
-                  transition={{
-                    duration: 0.8,
-                    ease: [0.16, 1, 0.3, 1],
-                    repeat: Infinity,
-                    repeatDelay: 3,
-                  }}
-                  className="font-display font-black text-4xl sm:text-6xl xl:text-7xl text-white uppercase leading-[0.85]"
-                >
-                  WE ARE PRESSED.
-                </motion.h2>
-              </div>
-              <div className="overflow-hidden">
-                <motion.h2
-                  animate={{ y: ['100%', '0%'] }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 0.08,
-                    ease: [0.16, 1, 0.3, 1],
-                    repeat: Infinity,
-                    repeatDelay: 3,
-                  }}
-                  className="font-display font-black text-4xl sm:text-6xl xl:text-7xl text-white uppercase text-transparent [-webkit-text-stroke:1px_#ffffff] leading-[0.85]"
-                >
-                  NOT CRUSHED.
-                </motion.h2>
-              </div>
+            <div className="space-y-1">
+              <WordRevealTitle
+                as="h2"
+                text="WE ARE PRESSED."
+                className="font-display font-black text-4xl sm:text-6xl xl:text-7xl text-white uppercase leading-[0.85]"
+              />
+              <WordRevealTitle
+                as="h2"
+                text="NOT CRUSHED."
+                className="font-display font-black text-4xl sm:text-6xl xl:text-7xl text-white uppercase leading-[0.85]"
+              />
             </div>
 
-            <p className="font-mono italic text-sm sm:text-base text-zinc-300 leading-relaxed border-l-2 border-white/50 pl-4 bg-black/50 backdrop-blur-sm py-2">
+            <p className="font-mono italic text-sm sm:text-base text-zinc-300 leading-relaxed bg-black/40 backdrop-blur-sm p-4 rounded">
               El ácido láctico arde en los cuádriceps en la última repetición. La respiración se quiebra en la garganta. Hay una belleza salvaje en llevar el cuerpo al límite exacto antes del colapso, donde la mente deja de razonar y solo queda el instinto del levantador. La tela ondea con mayor frecuencia, reflejando el pulso cardíaco acelerado.
             </p>
           </div>
         </section>
 
         {/* ========================================================
-            SECCIÓN 08: BLOQUE INFERIOR // MÁS TEXTOS & MANIFIESTO
+            SECCIÓN 08: BLOQUE INFERIOR // MANIFIESTO
+            Con fondo negro al 20% difuso (frosted glass) y sin tabla
            ======================================================== */}
-        <section id="manifesto" className="space-y-12 pb-16 scroll-mt-24">
+        <section id="manifesto" className="bg-black/20 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 sm:p-14 shadow-2xl space-y-10 scroll-mt-24">
           <div className="border-b border-white/10 pb-4">
             <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest block">
               SECCIÓN 08 // ANÁLISIS EDITORIAL Y TEXTIL
             </span>
-            <div className="overflow-hidden mt-1">
-              <motion.h2
-                animate={{ y: ['100%', '0%'] }}
-                transition={{
-                  duration: 0.8,
-                  ease: [0.16, 1, 0.3, 1],
-                  repeat: Infinity,
-                  repeatDelay: 3,
-                }}
+            <div className="mt-1">
+              <WordRevealTitle
+                as="h2"
+                text="MANIFIESTO DEL HIERRO"
                 className="font-display font-black text-3xl sm:text-5xl text-white uppercase tracking-tight"
-              >
-                MANIFIESTO DEL HIERRO
-              </motion.h2>
+              />
             </div>
           </div>
 
@@ -517,93 +388,11 @@ export const GymExperimentPage: React.FC = () => {
               </p>
             </div>
           </div>
-
-          {/* Tabla comparativa de parámetros para decidir qué aplicar */}
-          <div className="p-6 bg-black/80 border border-white/15 rounded space-y-4 font-mono text-xs">
-            <div className="flex items-center gap-2">
-              <Layers className="w-4 h-4 text-white" />
-              <h4 className="font-display font-black text-sm text-white uppercase tracking-wider">
-                TABLA COMPARATIVA DE EFECTOS // PARA DECIDIR QUÉ LLEVAR A LA WEB OFICIAL
-              </h4>
-            </div>
-
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="border-b border-white/20 text-zinc-400 text-[10px] uppercase">
-                    <th className="py-2 pr-4">Efecto / Preset</th>
-                    <th className="py-2 pr-4">Sensación Visual</th>
-                    <th className="py-2 pr-4">Consumo GPU</th>
-                    <th className="py-2">Recomendación de Aplicación</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10 text-zinc-300 text-[11px]">
-                  <tr>
-                    <td className="py-2.5 font-bold text-white">01. SUDOR &amp; TENSIÓN (3D)</td>
-                    <td className="py-2.5 italic">Micro-ondas vivas, caída tensa y sombreado profundo</td>
-                    <td className="py-2.5 text-emerald-400">Muy bajo (&lt; 2.5%)</td>
-                    <td className="py-2.5">Fondo y atmósfera principal activa</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-bold text-white">02. SEGUNDO CANVAS 3D (SLIDER)</td>
-                    <td className="py-2.5 italic">Ripples al pasar el cursor + slide de fotos</td>
-                    <td className="py-2.5 text-emerald-400">~16.4 MB VRAM (Totalmente viable)</td>
-                    <td className="py-2.5">Excelente para tarjeta de producto destacada</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-bold text-white">03. LINTERNA / REVEAL TIPOGRÁFICO</td>
-                    <td className="py-2.5 italic">Efecto linterna radial al pasar el cursor</td>
-                    <td className="py-2.5 text-emerald-400">Cero GPU (CSS Mask)</td>
-                    <td className="py-2.5">Títulos de colecciones y drops especiales</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-bold text-white">04. IMÁN CINÉTICO TIPOGRÁFICO</td>
-                    <td className="py-2.5 italic">El texto sigue al cursor con rebote elástico</td>
-                    <td className="py-2.5 text-emerald-400">60 FPS (Framer Motion Spring)</td>
-                    <td className="py-2.5">Botones de compra / Call-to-actions principales</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-bold text-white">05. INVERSIÓN DM MONO GIGANTE</td>
-                    <td className="py-2.5 italic">DM Mono -0.1em gigante + Clash Display micro</td>
-                    <td className="py-2.5 text-emerald-400">0% GPU (Puro CSS)</td>
-                    <td className="py-2.5">Look técnico / Brutalismo industrial de gimnasio</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-bold text-white">06. STRIP ACCORDION GALLERY</td>
-                    <td className="py-2.5 italic">Expansión suave al pasar el cursor</td>
-                    <td className="py-2.5 text-emerald-400">Ultraligero</td>
-                    <td className="py-2.5">Lookbook de campaña o galería de fotos</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-bold text-white">07. MICRO-TILT TARJETAS</td>
-                    <td className="py-2.5 italic">Inclinación 3D + brillo al pasar el mouse</td>
-                    <td className="py-2.5 text-emerald-400">Cero WebGL (CSS Puro)</td>
-                    <td className="py-2.5">Todas las tarjetas de productos de la tienda</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
         </section>
       </main>
 
-      {/* Footer del Lab */}
-      <footer className="relative z-10 border-t border-white/10 py-8 px-6 sm:px-10 flex flex-col sm:flex-row items-center justify-between gap-4 max-w-7xl mx-auto font-mono text-[11px] text-zinc-500">
-        <div className="flex items-center gap-4">
-          <img
-            src="/M.svg"
-            alt="Logo M Archive"
-            className="w-10 h-10 object-contain filter drop-shadow-[0_2px_10px_rgba(255,255,255,0.15)]"
-          />
-          <span>M ARCHIVE // LAB DE EXPERIMENTACIÓN GYM // BUENOS AIRES 2026</span>
-        </div>
-        <a
-          href="/"
-          className="text-zinc-400 hover:text-white transition-colors uppercase tracking-wider"
-        >
-          [ ← VOLVER A INDEX.HTML ]
-        </a>
-      </footer>
+      {/* Footer del Index en color negro */}
+      <Footer />
     </div>
   )
 }

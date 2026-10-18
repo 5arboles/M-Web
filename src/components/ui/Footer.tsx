@@ -1,23 +1,26 @@
 import React from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { createWhatsAppUrl } from '@/data/catalog'
+import { RollingText } from '@/components/ui/AnimatedText'
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="relative bg-[#020202] border-t border-white/10 pt-20 pb-12 px-6 md:px-10 z-20">
+    <footer className="relative bg-black border-t border-white/10 pt-20 pb-12 px-6 md:px-10 z-20">
       <div className="max-w-7xl mx-auto space-y-16">
         {/* Giant Brand Sign-off */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b border-white/10">
           <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8">
             {/* Logo M.svg */}
-            <img
-              src="/M.svg"
-              alt="Logo M Archive"
-              className="w-[110px] sm:w-[140px] h-auto object-contain filter drop-shadow-[0_4px_25px_rgba(255,255,255,0.15)]"
-            />
+            <a href="/" className="shrink-0">
+              <img
+                src="/M.svg"
+                alt="Logo MATSEI"
+                className="w-[110px] sm:w-[140px] h-auto object-contain filter drop-shadow-[0_4px_25px_rgba(255,255,255,0.15)]"
+              />
+            </a>
 
-            {/* Frase de ropa al lado, tipo streetwear */}
-            <div className="space-y-1 border-l-0 sm:border-l border-white/20 sm:pl-6">
+            {/* Frase de ropa al lado, sin línea izquierda */}
+            <div className="space-y-1">
               <span className="font-mono text-[10px] tracking-widest text-zinc-500 uppercase block">
                 [ 280 GSM HEAVYWEIGHT DROP ]
               </span>
@@ -35,12 +38,12 @@ export const Footer: React.FC = () => {
               Venta minorista y abastecimiento mayorista.
             </span>
             <a
-              href={createWhatsAppUrl('Hola! Quiero hacer una consulta general sobre M ARCHIVE.')}
+              href={createWhatsAppUrl('Hola! Quiero hacer una consulta general sobre MATSEI.')}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3.5 bg-white text-black font-display font-black text-xs tracking-wider uppercase hover:bg-zinc-200 transition-colors flex items-center gap-2"
+              className="group px-6 py-3.5 bg-white text-black font-display font-black text-xs tracking-wider uppercase hover:bg-zinc-200 transition-colors flex items-center gap-2"
             >
-              <span>ESCRIBINOS AL WHATSAPP</span>
+              <RollingText text="ESCRIBINOS AL WHATSAPP" />
               <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>
@@ -48,16 +51,14 @@ export const Footer: React.FC = () => {
 
         {/* Technical Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-xs font-mono text-zinc-400">
-          <div className="space-y-2">
-            <span className="text-white font-bold block uppercase tracking-wider">
-              LÍNEAS ACTIVAS
-            </span>
-            <ul className="space-y-1">
-              <li>01. Heavy Gym &amp; Pump Covers</li>
-              <li>02. Dark Rock Underground</li>
-              <li>03. Blokecore / Fútbol de Culto</li>
-              <li className="text-zinc-600">04. Hoodies &amp; Cargos (Pronto)</li>
-            </ul>
+          <div className="space-y-3">
+            <a
+              href="/gym.html"
+              className="group inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white text-white hover:text-black border border-white/25 hover:border-white rounded font-display font-black text-xs uppercase tracking-wider transition-all"
+            >
+              <RollingText text="Ver Línea GYM" />
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
           </div>
 
           <div className="space-y-2">
@@ -90,7 +91,7 @@ export const Footer: React.FC = () => {
             </span>
             <p className="leading-relaxed">
               Buenos Aires, Argentina.<br />
-              Atelier &amp; Producción Textil.<br />
+              Longchamps Producción Textil<br />
               Horario de atención: 09:00 - 19:00 hs.
             </p>
           </div>
@@ -98,7 +99,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-zinc-600">
-          <span>&copy; {new Date().getFullYear()} M ARCHIVE. TODOS LOS DERECHOS RESERVADOS.</span>
+          <span>&copy; {new Date().getFullYear()} MATSEI. TODOS LOS DERECHOS RESERVADOS.</span>
           <span>[ BS AS, ARG ]</span>
         </div>
       </div>

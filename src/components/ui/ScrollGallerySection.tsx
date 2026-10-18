@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { PRINTS_DATA, PrintItem, createWhatsAppUrl } from '@/data/catalog'
+import { WordRevealTitle, RollingText } from '@/components/ui/AnimatedText'
 
 // Tarjeta individual de la galería:
 // - La imagen de la camiseta ocupa todo el espacio
@@ -106,9 +107,9 @@ const GalleryCard: React.FC<{ item: PrintItem }> = ({ item }) => {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-2.5 px-3 bg-white text-black font-display font-bold text-xs tracking-wider uppercase hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-[0_10px_25px_rgba(255,255,255,0.25)] whitespace-nowrap"
+              className="group w-full py-2.5 px-3 bg-white text-black font-display font-bold text-xs tracking-wider uppercase hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-[0_10px_25px_rgba(255,255,255,0.25)] whitespace-nowrap"
             >
-              <span>PEDIR ESTE DISEÑO</span>
+              <RollingText text="PEDIR ESTE DISEÑO" />
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </motion.div>
@@ -141,25 +142,16 @@ export const ScrollGallerySection: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
               <span className="font-mono text-xs tracking-widest text-zinc-400 uppercase">
-                THE ARCHIVE GALLERY // 10 EDICIONES
+                MATSEI GALLERY // 10 EDICIONES
               </span>
             </div>
 
-            {/* Reveal cinético en loop cada 3 segundos */}
-            <div className="overflow-hidden">
-              <motion.h2
-                animate={{ y: ['100%', '0%'] }}
-                transition={{
-                  duration: 0.8,
-                  ease: [0.16, 1, 0.3, 1],
-                  repeat: Infinity,
-                  repeatDelay: 3,
-                }}
-                className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight uppercase"
-              >
-                DISEÑOS
-              </motion.h2>
-            </div>
+            {/* Reveal cinético por palabra en loop cada 3 segundos */}
+            <WordRevealTitle
+              as="h2"
+              text="DISEÑOS"
+              className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight uppercase"
+            />
 
             <p className="font-mono italic text-xs sm:text-sm text-zinc-400">
               Deslizá hacia abajo para ver todos.

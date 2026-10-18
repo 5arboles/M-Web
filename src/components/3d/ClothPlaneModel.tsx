@@ -42,6 +42,7 @@ export const ClothPlaneModel: React.FC<ClothPlaneModelProps> = ({
 
   const safeIndex = Number.isFinite(fondoIndex) ? Math.abs(fondoIndex) % textures.length : 0
   const currentTexture = textures[safeIndex]
+  const prevTextureRef = useRef<THREE.Texture>(textures[0])
 
   // 2. Detección de scroll y rueda del mouse para inclinar la tela
   useEffect(() => {
@@ -106,7 +107,7 @@ export const ClothPlaneModel: React.FC<ClothPlaneModelProps> = ({
     return texture
   }, [])
 
-  // 4. Uniforms con parámetros para el shader de tela
+  // 4. Uniforms con parámetros para el shader de tela + crossfade suave por opacidad
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
@@ -115,14 +116,24 @@ export const ClothPlaneModel: React.FC<ClothPlaneModelProps> = ({
       uRadiusY: { value: radiusY },
       uMouseStrength: { value: mouseStrength },
       uWaveIntensity: { value: waveIntensity },
+      uPrevMap: { value: textures[0] },
+      uMix: { value: 1.0 },
     }),
-    [radiusX, radiusY, mouseStrength, waveIntensity]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   )
 
-  // 5. Material PBR de tela con el JPG activo, oscurecimiento de profundidad y shader inyectado (100% opaco)
+  useEffect(() => {
+    uniforms.uRadiusX.value = radiusX
+    uniforms.uRadiusY.value = radiusY
+    uniforms.uMouseStrength.value = mouseStrength
+    uniforms.uWaveIntensity.value = waveIntensity
+  }, [radiusX, radiusY, mouseStrength, waveIntensity, uniforms])
+
+  // 5. Material PBR de tela con transición cruzada suave (sin recrear el material)
   const clothMaterial = useMemo(() => {
     const mat = new THREE.MeshStandardMaterial({
-      map: currentTexture,
+      map: textures[0],
       roughness: 0.72,
       metalness: 0.04,
       side: THREE.DoubleSide,
@@ -135,6 +146,8 @@ export const ClothPlaneModel: React.FC<ClothPlaneModelProps> = ({
       shader.uniforms.uRadiusY = uniforms.uRadiusY
       shader.uniforms.uMouseStrength = uniforms.uMouseStrength
       shader.uniforms.uWaveIntensity = uniforms.uWaveIntensity
+      shader.uniforms.uPrevMap = uniforms.uPrevMap
+      shader.uniforms.uMix = uniforms.uMix
 
       shader.vertexShader = `
         uniform float uTime;
@@ -179,27 +192,49 @@ export const ClothPlaneModel: React.FC<ClothPlaneModelProps> = ({
       )
 
       shader.fragmentShader = `
+        uniform sampler2D uPrevMap;
+        uniform float uMix;
         varying vec2 vClothUv;
         ${shader.fragmentShader}
       `
+
+      shader.fragmentShader = shader.fragmentShader.replace(
+        '#include <map_fragment>',
+        `
+        #ifdef USE_MAP
+          vec4 texPrev = texture2D( uPrevMap, vMapUv );
+          vec4 texCurr = texture2D( map, vMapUv );
+          float fadeFactor = smoothstep( 0.0, 1.0, clamp( uMix, 0.0, 1.0 ) );
+          vec4 sampledDiffuseColor = mix( texPrev, texCurr, fadeFactor );
+          diffuseColor *= sampledDiffuseColor;
+        #endif
+        `
+      )
 
       shader.fragmentShader = shader.fragmentShader.replace(
         '#include <dithering_fragment>',
         `
         #include <dithering_fragment>
 
-        // Sensación de profundidad en la parte trasera superior (uv.y va de 0 abajo a 1 arriba)
-        // Solo oscurecimiento hacia negro en la parte trasera para dar volumen, sin transparencia
+        // Sensación de profundidad en la parte trasera superior
         float backDepth = smoothstep(0.35, 1.0, vClothUv.y);
-
-        // Leve oscurecimiento hacia negro para sensación de lejanía física
         gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.0), backDepth * 0.46);
         `
       )
     }
 
     return mat
-  }, [currentTexture, uniforms])
+  }, [textures, uniforms])
+
+  // Activar fundido suave por opacidad cada vez que cambia la imagen de fondo
+  useEffect(() => {
+    if (currentTexture && currentTexture !== prevTextureRef.current) {
+      uniforms.uPrevMap.value = prevTextureRef.current
+      clothMaterial.map = currentTexture
+      uniforms.uMix.value = 0.0
+      prevTextureRef.current = currentTexture
+    }
+  }, [currentTexture, clothMaterial, uniforms])
 
   // 6. Intersección del mouse con el plano de la tela
   const rayPlane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), [])
@@ -207,13 +242,11 @@ export const ClothPlaneModel: React.FC<ClothPlaneModelProps> = ({
   const worldMouse = useMemo(() => new THREE.Vector3(), [])
   const localMouse = useMemo(() => new THREE.Vector3(), [])
 
-  // Posición y rotación de reposo base:
-  // Invertida un 20% (-0.35 rad) para que la parte de arriba se incline HACIA ATRÁS
   const basePosX = 0.75
   const basePosY = 0.04
   const basePosZ = 0.02
 
-  const baseRotX = -0.35 // Invertido: parte superior inclinada hacia atrás
+  const baseRotX = -0.35
   const baseRotY = -0.14
   const baseRotZ = 0.02
 
@@ -222,6 +255,11 @@ export const ClothPlaneModel: React.FC<ClothPlaneModelProps> = ({
 
     const t = state.clock.getElapsedTime()
     uniforms.uTime.value = t
+
+    // Avanzar suavemente el fundido cruzado entre texturas (~1.8 segundos)
+    if (uniforms.uMix.value < 1.0) {
+      uniforms.uMix.value = Math.min(1.0, uniforms.uMix.value + delta * 0.55)
+    }
 
     // Raycast a la superficie del paño
     raycaster.setFromCamera(state.pointer, camera)
@@ -238,8 +276,6 @@ export const ClothPlaneModel: React.FC<ClothPlaneModelProps> = ({
     // Retorno elástico suave cuando el usuario detiene el scroll
     scrollTiltRef.current = THREE.MathUtils.damp(scrollTiltRef.current, 0, 3.8, delta)
 
-    // Inclinación dinámica con el scroll:
-    // Al scrollear hacia abajo (+tilt), la parte superior se gira aún más hacia atrás (-tilt)
     const tilt = scrollTiltRef.current
     const targetRotX = baseRotX - tilt * 1.35
     const targetRotY = baseRotY - tilt * 0.16
@@ -311,7 +347,7 @@ export const ClothPlaneModel: React.FC<ClothPlaneModelProps> = ({
 
   return (
     <group>
-      {/* 1. Paño de tela en movimiento con el JPG activo (fondo.jpg / fondo2.jpg / fondo3.jpg) */}
+      {/* 1. Paño de tela en movimiento con fundido cruzado suave */}
       <mesh
         ref={meshRef}
         position={[basePosX, basePosY, basePosZ]}

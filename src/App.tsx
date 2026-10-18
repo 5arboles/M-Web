@@ -55,7 +55,7 @@ export const App: React.FC = () => {
       {/* Botón flotante permanente de WhatsApp */}
       <aside aria-label="Contacto Rápido" className="fixed bottom-6 right-6 z-50">
         <a
-          href={createWhatsAppUrl('Hola! Estoy navegando M ARCHIVE y quiero hacer una consulta.')}
+          href={createWhatsAppUrl('Hola! Estoy navegando MATSEI y quiero hacer una consulta.')}
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center gap-2.5 px-4 py-3 bg-white text-black font-display font-bold text-xs tracking-wider uppercase rounded-full shadow-[0_0_25px_rgba(255,255,255,0.25)] hover:bg-zinc-200 hover:scale-105 transition-all duration-300"

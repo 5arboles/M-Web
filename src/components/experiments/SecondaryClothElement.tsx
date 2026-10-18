@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import { ChevronLeft, ChevronRight, Cpu, Activity, Info } from 'lucide-react'
+import { WordRevealTitle } from '@/components/ui/AnimatedText'
 
 const SLIDE_IMAGES = [
   {
@@ -152,19 +153,12 @@ export const SecondaryClothElement: React.FC = () => {
           <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest block">
             EXPERIMENTO 03 // TEST DE MEMORIA &amp; SEGUNDA TELA 3D
           </span>
-          <div className="overflow-hidden mt-1">
-            <motion.h2
-              animate={{ y: ['100%', '0%'] }}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-                repeat: Infinity,
-                repeatDelay: 3,
-              }}
+          <div className="mt-1">
+            <WordRevealTitle
+              as="h2"
+              text="SLIDER 3D EN TELA VIVA"
               className="font-display font-black text-2xl sm:text-4xl text-white uppercase tracking-tight"
-            >
-              SLIDER 3D EN TELA VIVA
-            </motion.h2>
+            />
           </div>
           <p className="font-mono italic text-xs sm:text-sm text-zinc-400 mt-1 max-w-xl">
             ¿Es costoso usar el efecto de tela en otro elemento? Acá podés probarlo en vivo: este slider corre una segunda instancia WebGL independiente con las nuevas fotos de gimnasio.
@@ -265,7 +259,7 @@ export const SecondaryClothElement: React.FC = () => {
             </span>
           </div>
 
-          <p className="italic text-xs sm:text-sm text-zinc-400 leading-relaxed border-l-2 border-white/40 pl-4">
+          <p className="italic text-xs sm:text-sm text-zinc-400 leading-relaxed">
             Al aplicar el efecto de tela en un slider de fotos, la imagen deja de ser un cartel estático: se comporta como un tapiz de lona colgado en el box de entrenamiento. Al pasar el cursor, la tela se deforma con física táctil.
           </p>
 

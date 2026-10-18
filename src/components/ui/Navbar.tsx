@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { createWhatsAppUrl } from '@/data/catalog'
+import { RollingText } from '@/components/ui/AnimatedText'
 
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false)
@@ -47,12 +48,12 @@ export const Navbar: React.FC = () => {
         {/* WhatsApp Action Button */}
         <div className="hidden sm:flex items-center gap-4">
           <a
-            href={createWhatsAppUrl('Hola! Quiero consultar por las remeras de M ARCHIVE.')}
+            href={createWhatsAppUrl('Hola! Quiero consultar por las remeras de MATSEI.')}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 bg-white text-black font-display font-bold text-xs tracking-wider rounded-none hover:bg-zinc-200 transition-all duration-200"
+            className="group flex items-center gap-2 px-4 py-2 bg-white text-black font-display font-bold text-xs tracking-wider rounded-none hover:bg-zinc-200 transition-all duration-200"
           >
-            <span>WHATSAPP DIRECT</span>
+            <RollingText text="WHATSAPP DIRECT" />
             <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>
@@ -92,12 +93,12 @@ export const Navbar: React.FC = () => {
             [ VENTA MAYORISTA ]
           </a>
           <a
-            href={createWhatsAppUrl('Hola! Quiero consultar por las remeras de M ARCHIVE.')}
+            href={createWhatsAppUrl('Hola! Quiero consultar por las remeras de MATSEI.')}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full py-3 bg-white text-black font-display font-bold text-xs tracking-wider"
+            className="group flex items-center justify-center gap-2 w-full py-3 bg-white text-black font-display font-bold text-xs tracking-wider"
           >
-            <span>CONTACTO WHATSAPP</span>
+            <RollingText text="CONTACTO WHATSAPP" />
             <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>

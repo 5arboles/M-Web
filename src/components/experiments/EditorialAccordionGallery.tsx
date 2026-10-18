@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Maximize2, Sparkles, Eye, Columns, Grid } from 'lucide-react'
+import { Maximize2, Eye, Columns, Grid } from 'lucide-react'
+import { WordRevealTitle, RollingText } from '@/components/ui/AnimatedText'
 
 interface AccordionItem {
   id: string
@@ -125,19 +126,12 @@ export const EditorialAccordionGallery: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
             <span>GALERÍA DE IMÁGENES ALTERNATIVA // FORMATO 02</span>
           </div>
-          <div className="overflow-hidden mt-1">
-            <motion.h2
-              animate={{ y: ['100%', '0%'] }}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-                repeat: Infinity,
-                repeatDelay: 3,
-              }}
+          <div className="mt-1">
+            <WordRevealTitle
+              as="h2"
+              text="EDITORIAL ACCORDION & CONTACT SHEET"
               className="font-display font-black text-3xl sm:text-5xl text-white uppercase tracking-tight"
-            >
-              EDITORIAL ACCORDION &amp; CONTACT SHEET
-            </motion.h2>
+            />
           </div>
           <p className="text-zinc-400 font-mono text-xs max-w-xl mt-2 italic">
             Inspeccioná las 6 imágenes recién subidas: paneo horizontal interactivo con expansión suave en hover/clic,
@@ -149,25 +143,25 @@ export const EditorialAccordionGallery: React.FC = () => {
         <div className="flex items-center gap-2 font-mono text-xs self-start md:self-auto">
           <button
             onClick={() => setViewMode('accordion')}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded uppercase transition-colors ${
+            className={`group flex items-center gap-2 px-3 py-1.5 rounded uppercase transition-colors ${
               viewMode === 'accordion'
                 ? 'bg-white text-black font-bold'
                 : 'bg-white/5 text-zinc-400 hover:text-white border border-white/10'
             }`}
           >
             <Columns className="w-3.5 h-3.5" />
-            <span>STRIP ACCORDION</span>
+            <RollingText text="STRIP ACCORDION" />
           </button>
           <button
             onClick={() => setViewMode('grid')}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded uppercase transition-colors ${
+            className={`group flex items-center gap-2 px-3 py-1.5 rounded uppercase transition-colors ${
               viewMode === 'grid'
                 ? 'bg-white text-black font-bold'
                 : 'bg-white/5 text-zinc-400 hover:text-white border border-white/10'
             }`}
           >
             <Grid className="w-3.5 h-3.5" />
-            <span>CONTACT GRID</span>
+            <RollingText text="CONTACT GRID" />
           </button>
         </div>
       </div>
@@ -181,9 +175,8 @@ export const EditorialAccordionGallery: React.FC = () => {
             const isActive = activeId === item.id
 
             return (
-              <motion.div
+              <div
                 key={item.id}
-                layout
                 onClick={() => setActiveId(item.id)}
                 onMouseEnter={() => setActiveId(item.id)}
                 className={`relative cursor-pointer overflow-hidden rounded transition-all duration-500 ease-out flex-shrink-0 ${
@@ -193,7 +186,7 @@ export const EditorialAccordionGallery: React.FC = () => {
                 }`}
               >
                 {/* Imagen de fondo */}
-                <motion.img
+                <img
                   src={item.image}
                   alt={item.title}
                   className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${
@@ -205,7 +198,7 @@ export const EditorialAccordionGallery: React.FC = () => {
                 <div
                   className={`absolute inset-0 transition-opacity duration-500 ${
                     isActive
-                      ? 'bg-gradient-to-t from-black via-black/30 to-black/20'
+                      ? 'bg-gradient-to-t from-black via-black/40 to-black/20'
                       : 'bg-black/50 hover:bg-black/30'
                   }`}
                 />
@@ -232,11 +225,11 @@ export const EditorialAccordionGallery: React.FC = () => {
                 <AnimatePresence>
                   {isActive && (
                     <motion.div
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3, delay: 0.1 }}
-                      className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-between z-10"
+                      transition={{ duration: 0.3 }}
+                      className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-between z-10 overflow-hidden"
                     >
                       {/* Top Bar del panel */}
                       <div className="flex items-center justify-between">
@@ -261,8 +254,8 @@ export const EditorialAccordionGallery: React.FC = () => {
                         </button>
                       </div>
 
-                      {/* Bottom Info del panel */}
-                      <div className="space-y-4 max-w-xl">
+                      {/* Bottom Info del panel - ancho completo sin reflow durante la expansión */}
+                      <div className="w-full min-w-[320px] sm:min-w-[460px] lg:min-w-[540px] space-y-4">
                         <div>
                           <span className="font-mono text-[11px] text-zinc-400 tracking-wider block">
                             {item.tagline}
@@ -272,9 +265,9 @@ export const EditorialAccordionGallery: React.FC = () => {
                           </h3>
                         </div>
 
-                        {/* Párrafo poético */}
-                        <p className="font-mono italic text-xs sm:text-sm text-zinc-200 leading-relaxed bg-black/60 backdrop-blur-md p-3.5 rounded border-l-2 border-white">
-                          "{item.poem}"
+                        {/* Párrafo poético sin comillas y sin borde izquierdo */}
+                        <p className="font-mono italic text-xs sm:text-sm text-zinc-200 leading-relaxed bg-black/60 backdrop-blur-md p-3.5 rounded">
+                          {item.poem}
                         </p>
 
                         {/* Ficha técnica del disparo */}
@@ -296,7 +289,7 @@ export const EditorialAccordionGallery: React.FC = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             )
           })}
         </div>
@@ -345,7 +338,7 @@ export const EditorialAccordionGallery: React.FC = () => {
                 </div>
 
                 <p className="text-zinc-400 italic text-[11px] leading-relaxed line-clamp-3">
-                  "{item.poem}"
+                  {item.poem}
                 </p>
 
                 <div className="flex items-center justify-between pt-2 border-t border-white/10 text-[10px] text-zinc-500">
@@ -391,14 +384,14 @@ export const EditorialAccordionGallery: React.FC = () => {
                   <h4 className="font-display font-black text-lg text-white uppercase">
                     {lightboxImage.title}
                   </h4>
-                  <p className="italic text-zinc-400 mt-1 max-w-xl">"{lightboxImage.poem}"</p>
+                  <p className="italic text-zinc-400 mt-1 max-w-xl">{lightboxImage.poem}</p>
                 </div>
 
                 <button
                   onClick={() => setLightboxImage(null)}
-                  className="px-4 py-2 bg-white text-black font-bold uppercase rounded hover:bg-zinc-200 transition-colors self-start sm:self-auto text-xs"
+                  className="group px-4 py-2 bg-white text-black font-bold uppercase rounded hover:bg-zinc-200 transition-colors self-start sm:self-auto text-xs"
                 >
-                  CERRAR [ESC]
+                  <RollingText text="CERRAR [ESC]" />
                 </button>
               </div>
             </motion.div>

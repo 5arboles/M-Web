@@ -3,6 +3,12 @@ import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 
+const GYM_TEXTURE_URLS = [
+  '/images/gym-lunes.jpg',
+  '/images/gym2.jpg',
+  '/images/gym3.jpg',
+]
+
 export interface ClothParams {
   waveIntensity: number
   waveSpeed: number
@@ -24,23 +30,27 @@ const ClothMesh: React.FC<ClothMeshProps> = ({ textureUrl, params }) => {
   const { camera } = useThree()
   const scrollTiltRef = useRef(0)
 
-  // Carga optimizada de textura con mipmaps y anisotropic filtering
-  const texture = useTexture(textureUrl)
+  // Precargar las 3 texturas de gym de una sola vez para fundido sin corte
+  const textures = useTexture(GYM_TEXTURE_URLS)
 
   useEffect(() => {
-    if (texture) {
-      texture.anisotropy = 16
-      texture.colorSpace = THREE.SRGBColorSpace
-      texture.wrapS = THREE.ClampToEdgeWrapping
-      texture.wrapT = THREE.ClampToEdgeWrapping
-      texture.generateMipmaps = true
-      texture.minFilter = THREE.LinearMipmapLinearFilter
-      texture.magFilter = THREE.LinearFilter
-      texture.needsUpdate = true
-    }
-  }, [texture])
+    textures.forEach((tex) => {
+      tex.anisotropy = 16
+      tex.colorSpace = THREE.SRGBColorSpace
+      tex.wrapS = THREE.ClampToEdgeWrapping
+      tex.wrapT = THREE.ClampToEdgeWrapping
+      tex.generateMipmaps = true
+      tex.minFilter = THREE.LinearMipmapLinearFilter
+      tex.magFilter = THREE.LinearFilter
+      tex.needsUpdate = true
+    })
+  }, [textures])
 
-  // Uniforms reactivos a los parámetros
+  const activeIndex = Math.max(0, GYM_TEXTURE_URLS.indexOf(textureUrl))
+  const currentTexture = textures[activeIndex] || textures[0]
+  const prevTextureRef = useRef<THREE.Texture>(textures[0])
+
+  // Uniforms reactivos a los parámetros + fundido por opacidad
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
@@ -51,7 +61,10 @@ const ClothMesh: React.FC<ClothMeshProps> = ({ textureUrl, params }) => {
       uWaveIntensity: { value: params.waveIntensity },
       uWaveSpeed: { value: params.waveSpeed },
       uBackDarkness: { value: params.backDarkness },
+      uPrevMap: { value: textures[0] },
+      uMix: { value: 1.0 },
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
 
@@ -102,10 +115,10 @@ const ClothMesh: React.FC<ClothMeshProps> = ({ textureUrl, params }) => {
     return tex
   }, [])
 
-  // Material PBR con shader inyectado
+  // Material PBR con shader inyectado y crossfade suave
   const clothMaterial = useMemo(() => {
     const mat = new THREE.MeshStandardMaterial({
-      map: texture,
+      map: textures[0],
       roughness: 0.72,
       metalness: 0.04,
       side: THREE.DoubleSide,
@@ -120,6 +133,8 @@ const ClothMesh: React.FC<ClothMeshProps> = ({ textureUrl, params }) => {
       shader.uniforms.uWaveIntensity = uniforms.uWaveIntensity
       shader.uniforms.uWaveSpeed = uniforms.uWaveSpeed
       shader.uniforms.uBackDarkness = uniforms.uBackDarkness
+      shader.uniforms.uPrevMap = uniforms.uPrevMap
+      shader.uniforms.uMix = uniforms.uMix
 
       shader.vertexShader = `
         uniform float uTime;
@@ -165,9 +180,24 @@ const ClothMesh: React.FC<ClothMeshProps> = ({ textureUrl, params }) => {
 
       shader.fragmentShader = `
         uniform float uBackDarkness;
+        uniform sampler2D uPrevMap;
+        uniform float uMix;
         varying vec2 vClothUv;
         ${shader.fragmentShader}
       `
+
+      shader.fragmentShader = shader.fragmentShader.replace(
+        '#include <map_fragment>',
+        `
+        #ifdef USE_MAP
+          vec4 texPrev = texture2D( uPrevMap, vMapUv );
+          vec4 texCurr = texture2D( map, vMapUv );
+          float fadeFactor = smoothstep( 0.0, 1.0, clamp( uMix, 0.0, 1.0 ) );
+          vec4 sampledDiffuseColor = mix( texPrev, texCurr, fadeFactor );
+          diffuseColor *= sampledDiffuseColor;
+        #endif
+        `
+      )
 
       shader.fragmentShader = shader.fragmentShader.replace(
         '#include <dithering_fragment>',
@@ -182,7 +212,17 @@ const ClothMesh: React.FC<ClothMeshProps> = ({ textureUrl, params }) => {
     }
 
     return mat
-  }, [texture, uniforms])
+  }, [textures, uniforms])
+
+  // Activar fundido suave por opacidad cuando cambia la imagen
+  useEffect(() => {
+    if (currentTexture && currentTexture !== prevTextureRef.current) {
+      uniforms.uPrevMap.value = prevTextureRef.current
+      clothMaterial.map = currentTexture
+      uniforms.uMix.value = 0.0
+      prevTextureRef.current = currentTexture
+    }
+  }, [currentTexture, clothMaterial, uniforms])
 
   // Raycaster para el cursor
   const rayPlane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), [])
@@ -199,6 +239,11 @@ const ClothMesh: React.FC<ClothMeshProps> = ({ textureUrl, params }) => {
 
     const t = state.clock.getElapsedTime()
     uniforms.uTime.value = t
+
+    // Avanzar suavemente el fundido cruzado entre texturas (~1.8 segundos)
+    if (uniforms.uMix.value < 1.0) {
+      uniforms.uMix.value = Math.min(1.0, uniforms.uMix.value + delta * 0.55)
+    }
 
     raycaster.setFromCamera(state.pointer, camera)
     raycaster.ray.intersectPlane(rayPlane, worldMouse)
@@ -288,6 +333,8 @@ const ClothMesh: React.FC<ClothMeshProps> = ({ textureUrl, params }) => {
     </group>
   )
 }
+
+useTexture.preload(GYM_TEXTURE_URLS)
 
 interface GymClothCanvasProps {
   textureUrl: string

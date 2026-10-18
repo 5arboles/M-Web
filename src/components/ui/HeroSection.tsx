@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
+import { WordRevealTitle, RollingText } from '@/components/ui/AnimatedText'
 
 interface HeroSectionProps {
   activeFondoTitle?: string
@@ -28,28 +29,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ activeFondoTitle }) =>
         style={{ opacity: textOpacity, y: textY, scale: textScale }}
         className="relative z-20 w-full h-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 flex flex-col justify-between py-10 sm:py-12 pointer-events-none"
       >
-        {/* Cabecera superior: Logo M.svg + Botones URBAN y GYM */}
+        {/* Cabecera superior: Logo M.svg + Botones URBAN y GYM con Rolling Text */}
         <div className="flex items-center justify-between pt-2">
           <div className="flex items-center gap-3 pointer-events-auto">
             <a href="/" className="shrink-0">
               <img
                 src="/M.svg"
-                alt="Logo M"
+                alt="Logo MATSEI"
                 className="w-[72px] sm:w-[88px] h-auto object-contain filter drop-shadow-[0_2px_12px_rgba(255,255,255,0.15)]"
               />
             </a>
             <div className="flex items-center gap-2">
               <a
                 href="/"
-                className="px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-white text-black border border-white shadow-[0_0_15px_rgba(255,255,255,0.25)] transition-all"
+                className="group px-4 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-white text-black border border-white shadow-[0_0_15px_rgba(255,255,255,0.25)] transition-all"
               >
-                URBAN
+                <RollingText text="URBAN" />
               </a>
               <a
                 href="/gym.html"
-                className="px-3.5 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-black/60 text-zinc-300 hover:bg-white hover:text-black border border-white/25 hover:border-white transition-all"
+                className="group px-4 py-1.5 font-display font-black text-xs tracking-wider uppercase rounded bg-black/60 text-zinc-300 hover:bg-white hover:text-black border border-white/25 hover:border-white transition-all"
               >
-                GYM
+                <RollingText text="GYM" />
               </a>
             </div>
           </div>
@@ -71,52 +72,30 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ activeFondoTitle }) =>
             </span>
           </div>
 
-          {/* Titular gigante en Clash Display con animación de entrada en loop cada 3 segundos */}
+          {/* Titular gigante en Clash Display con animación de abajo hacia arriba por palabra cada 3 segundos */}
           <div className="space-y-0 -space-y-1.5 sm:-space-y-3">
-            <div className="overflow-hidden">
-              <motion.h1
-                animate={{ y: ['100%', '0%'] }}
-                transition={{
-                  duration: 0.8,
-                  ease: [0.16, 1, 0.3, 1],
-                  repeat: Infinity,
-                  repeatDelay: 3,
-                }}
-                className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] sm:leading-[0.84] text-white uppercase drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
-              >
-                WEAR THE
-              </motion.h1>
-            </div>
-            <div className="overflow-hidden">
-              <motion.h1
-                animate={{ y: ['100%', '0%'] }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.08,
-                  ease: [0.16, 1, 0.3, 1],
-                  repeat: Infinity,
-                  repeatDelay: 3,
-                }}
-                className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] sm:leading-[0.84] text-white uppercase text-transparent [-webkit-text-stroke:1px_#ffffff] drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
-              >
-                ATTITUDE.
-              </motion.h1>
-            </div>
-            <div className="overflow-hidden">
-              <motion.h1
-                animate={{ y: ['100%', '0%'] }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.16,
-                  ease: [0.16, 1, 0.3, 1],
-                  repeat: Infinity,
-                  repeatDelay: 3,
-                }}
-                className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] sm:leading-[0.84] text-white uppercase drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
-              >
-                NOT JUST FABRIC.
-              </motion.h1>
-            </div>
+            <WordRevealTitle
+              text="WEAR THE"
+              as="h1"
+              baseDelay={0}
+              stagger={0.09}
+              className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] sm:leading-[0.84] text-white uppercase drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
+            />
+            <WordRevealTitle
+              text="ATTITUDE."
+              as="h1"
+              baseDelay={0.18}
+              stagger={0.09}
+              className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] sm:leading-[0.84] uppercase drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
+              wordClassName="text-transparent [-webkit-text-stroke:1px_#ffffff]"
+            />
+            <WordRevealTitle
+              text="NOT JUST FABRIC."
+              as="h1"
+              baseDelay={0.28}
+              stagger={0.09}
+              className="font-display font-black text-5xl sm:text-7xl xl:text-8xl tracking-tight leading-[0.82] sm:leading-[0.84] text-white uppercase drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
+            />
           </div>
 
           {/* Acción de navegación scroll */}
@@ -133,7 +112,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ activeFondoTitle }) =>
 
         {/* Barra inferior: datos técnicos a la izquierda y ficha del diseño a la DERECHA */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-white/10 pt-4 text-[11px] font-mono text-zinc-500">
-          <span>[ ATELIER BUENOS AIRES // 100% COMBED COTTON ]</span>
+          <span>[ LONGCHAMPS PRODUCCIÓN TEXTIL // 100% COMBED COTTON ]</span>
 
           {/* Texto del diseño activo en el fondo: ubicado a la derecha, más chico y conciso */}
           <motion.div

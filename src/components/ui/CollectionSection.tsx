@@ -27,7 +27,7 @@ export const CollectionSection: React.FC = () => {
           </h2>
 
           <p className="font-mono italic text-zinc-400 text-sm sm:text-base leading-relaxed">
-            “Tres universos conectados por el mismo estándar: 280 GSM de puro algodón peinado, caída pesada y costuras indestructibles.”
+            Tres universos conectados por el mismo estándar: 280 GSM de puro algodón peinado, caída pesada y costuras indestructibles.
           </p>
         </div>
 
@@ -80,7 +80,7 @@ export const CollectionSection: React.FC = () => {
 
         {/* Category Description Banner */}
         <div className="bg-zinc-950 p-6 md:p-8 border border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="space-y-2 border-l-2 border-white pl-4">
+          <div className="space-y-2">
             <span className="font-mono text-[11px] text-zinc-500 uppercase tracking-widest block">
               DIVISIÓN 01 // GYM
             </span>
@@ -92,7 +92,7 @@ export const CollectionSection: React.FC = () => {
             </p>
           </div>
 
-          <div className="space-y-2 border-l-2 border-zinc-600 pl-4">
+          <div className="space-y-2">
             <span className="font-mono text-[11px] text-zinc-500 uppercase tracking-widest block">
               DIVISIÓN 02 // ROCK
             </span>
@@ -104,7 +104,7 @@ export const CollectionSection: React.FC = () => {
             </p>
           </div>
 
-          <div className="space-y-2 border-l-2 border-zinc-600 pl-4">
+          <div className="space-y-2">
             <span className="font-mono text-[11px] text-zinc-500 uppercase tracking-widest block">
               DIVISIÓN 03 // BLOKECORE
             </span>
