@@ -3,6 +3,33 @@ import { ArrowUpRight } from 'lucide-react'
 import { createWhatsAppUrl } from '@/data/catalog'
 import { RollingText } from '@/components/ui/AnimatedText'
 
+// Iconos vectoriales oficiales para Redes Sociales
+const InstagramIcon: React.FC<{ className?: string }> = ({ className = 'w-3.5 h-3.5' }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+)
+
+const FacebookIcon: React.FC<{ className?: string }> = ({ className = 'w-3.5 h-3.5' }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+  </svg>
+)
+
+const TwitterXIcon: React.FC<{ className?: string }> = ({ className = 'w-3.5 h-3.5' }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+)
+
+const SOCIAL_NETWORKS = [
+  { name: 'Instagram', id: 'ig', icon: InstagramIcon },
+  { name: 'Facebook', id: 'fb', icon: FacebookIcon },
+  { name: 'Twitter (X)', id: 'tw', icon: TwitterXIcon },
+]
+
 interface FooterProps {
   currentSection?: 'urban' | 'gym'
 }
@@ -66,28 +93,35 @@ export const Footer: React.FC<FooterProps> = ({ currentSection = 'urban' }) => {
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
 
-            {/* Redes Sociales con rollover PRÓXIMAMENTE */}
-            <div className="space-y-2.5">
+            {/* Redes Sociales con iconos y rollover PRÓXIMAMENTE */}
+            <div className="space-y-3">
               <span className="text-white font-bold block uppercase tracking-wider text-[11px]">
                 REDES SOCIALES
               </span>
               <ul className="space-y-2">
-                {[
-                  { name: 'Instagram', id: 'ig' },
-                  { name: 'Facebook', id: 'fb' },
-                  { name: 'Twitter', id: 'tw' },
-                ].map((social) => (
-                  <li key={social.id}>
-                    <div className="group relative inline-flex items-center gap-2 cursor-pointer select-none py-0.5">
-                      <span className="text-zinc-400 group-hover:text-zinc-500 transition-colors">
-                        {social.name}
-                      </span>
-                      <span className="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200 px-1.5 py-0.5 bg-white text-black font-bold text-[9px] uppercase tracking-wider rounded shadow-sm">
-                        PRÓXIMAMENTE
-                      </span>
-                    </div>
-                  </li>
-                ))}
+                {SOCIAL_NETWORKS.map((social) => {
+                  const Icon = social.icon
+                  return (
+                    <li key={social.id}>
+                      <div className="group relative inline-flex items-center gap-2.5 cursor-pointer select-none py-1 px-1.5 -ml-1.5 rounded hover:bg-white/[0.04] transition-colors">
+                        {/* Contenedor del Icono */}
+                        <div className="w-6 h-6 rounded bg-white/10 group-hover:bg-white text-zinc-300 group-hover:text-black flex items-center justify-center transition-all duration-200 shrink-0">
+                          <Icon className="w-3.5 h-3.5 transition-transform duration-200 group-hover:scale-110" />
+                        </div>
+
+                        {/* Nombre de la Red */}
+                        <span className="text-zinc-300 group-hover:text-white transition-colors text-xs">
+                          {social.name}
+                        </span>
+
+                        {/* Rollover badge: PRÓXIMAMENTE */}
+                        <span className="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200 px-1.5 py-0.5 bg-white text-black font-bold text-[9px] uppercase tracking-wider rounded shadow-sm whitespace-nowrap">
+                          PRÓXIMAMENTE
+                        </span>
+                      </div>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           </div>
