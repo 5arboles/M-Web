@@ -82,9 +82,9 @@ export const Footer: React.FC<FooterProps> = ({ currentSection = 'urban' }) => {
           </div>
         </div>
 
-        {/* Technical Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-xs font-mono text-zinc-400">
-          <div className="space-y-6">
+        {/* Technical Grid (3 columnas: Acceso & Redes, Comercial, Ubicación) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-xs font-mono text-zinc-400">
+          <div className="space-y-5">
             <a
               href={isGym ? "/" : "/gym.html"}
               className="group inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white text-white hover:text-black border border-white/25 hover:border-white rounded font-display font-black text-xs uppercase tracking-wider transition-all"
@@ -93,49 +93,29 @@ export const Footer: React.FC<FooterProps> = ({ currentSection = 'urban' }) => {
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
 
-            {/* Redes Sociales con iconos y rollover PRÓXIMAMENTE */}
-            <div className="space-y-3">
-              <span className="text-white font-bold block uppercase tracking-wider text-[11px]">
-                REDES SOCIALES
-              </span>
-              <ul className="space-y-2">
-                {SOCIAL_NETWORKS.map((social) => {
-                  const Icon = social.icon
-                  return (
-                    <li key={social.id}>
-                      <div className="group relative inline-flex items-center gap-2.5 cursor-pointer select-none py-1 px-1.5 -ml-1.5 rounded hover:bg-white/[0.04] transition-colors">
-                        {/* Contenedor del Icono */}
-                        <div className="w-6 h-6 rounded bg-white/10 group-hover:bg-white text-zinc-300 group-hover:text-black flex items-center justify-center transition-all duration-200 shrink-0">
-                          <Icon className="w-3.5 h-3.5 transition-transform duration-200 group-hover:scale-110" />
-                        </div>
+            {/* Solo iconos uno al lado del otro, sin título, con rollover PRÓXIMAMENTE */}
+            <div className="flex items-center gap-2.5 pt-1">
+              {SOCIAL_NETWORKS.map((social) => {
+                const Icon = social.icon
+                return (
+                  <div key={social.id} className="group relative">
+                    <div
+                      className="w-9 h-9 rounded bg-white/5 hover:bg-white text-zinc-400 hover:text-black border border-white/15 hover:border-white flex items-center justify-center transition-all duration-200 cursor-pointer shadow-sm hover:scale-105"
+                      aria-label={social.name}
+                    >
+                      <Icon className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" />
+                    </div>
 
-                        {/* Nombre de la Red */}
-                        <span className="text-zinc-300 group-hover:text-white transition-colors text-xs">
-                          {social.name}
-                        </span>
-
-                        {/* Rollover badge: PRÓXIMAMENTE */}
-                        <span className="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200 px-1.5 py-0.5 bg-white text-black font-bold text-[9px] uppercase tracking-wider rounded shadow-sm whitespace-nowrap">
-                          PRÓXIMAMENTE
-                        </span>
-                      </div>
-                    </li>
-                  )
-                })}
-              </ul>
+                    {/* Tooltip badge en rollover: PRÓXIMAMENTE */}
+                    <div className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:-top-9 transition-all duration-200 z-30">
+                      <span className="px-2 py-0.5 bg-white text-black font-mono font-black text-[9px] uppercase tracking-wider rounded shadow-[0_4px_15px_rgba(255,255,255,0.35)] whitespace-nowrap">
+                        PRÓXIMAMENTE
+                      </span>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
-          </div>
-
-          <div className="space-y-2">
-            <span className="text-white font-bold block uppercase tracking-wider">
-              ESTÁNDARES
-            </span>
-            <ul className="space-y-1">
-              <li>Algodón Peinado 280 GSM</li>
-              <li>Cuello Ribb Alto 2x1</li>
-              <li>Costura Reforzada 4 Hilos</li>
-              <li>Tintas de Alta Densidad</li>
-            </ul>
           </div>
 
           <div className="space-y-2">
